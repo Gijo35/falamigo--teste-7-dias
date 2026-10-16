@@ -1,0 +1,2689 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#B2DFDB">
+<title>Falamigo — AAC Unificado</title>
+<style>
+/* ===== VARIÁVEIS GLOBAIS ===== */
+:root {
+  --bg:#E0F2F1; --card:#FFFFFF; --text:#263238; --text2:#546E7A;
+  --primary:#4DB6AC; --primary2:#80CBC4; --accent:#81D4FA;
+  --success:#A5D6A7; --danger:#EF9A9A; --warning:#FFE082; --info:#90CAF9;
+  --border:#B2DFDB; --shadow:0 4px 20px rgba(77,182,172,0.15);
+  --mascote-border:#4DB6AC; --radius:16px;
+}
+[data-theme="verde-menta"] { --bg:#E8F5E9; --card:#FFFFFF; --text:#1B5E20; --text2:#388E3C; --primary:#66BB6A; --primary2:#A5D6A7; --accent:#C8E6C9; --border:#A5D6A7; --shadow:0 4px 20px rgba(102,187,106,0.15); --mascote-border:#66BB6A; }
+[data-theme="lavanda"] { --bg:#F3E5F5; --card:#FFFFFF; --text:#4A148C; --text2:#7B1FA2; --primary:#AB47BC; --primary2:#CE93D8; --accent:#E1BEE7; --border:#CE93D8; --shadow:0 4px 20px rgba(171,71,188,0.15); --mascote-border:#AB47BC; }
+[data-theme="creme"] { --bg:#FFF8E1; --card:#FFFFFF; --text:#5D4037; --text2:#8D6E63; --primary:#FFB74D; --primary2:#FFE0B2; --accent:#FFECB3; --border:#FFE0B2; --shadow:0 4px 20px rgba(255,183,77,0.15); --mascote-border:#FFB74D; }
+[data-theme="escuro"] { --bg:#0D1B1E; --card:#1A2E32; --text:#B2DFDB; --text2:#80CBC4; --primary:#4DB6AC; --primary2:#26A69A; --accent:#00897B; --border:#2A4A50; --shadow:0 4px 20px rgba(0,0,0,0.35); --mascote-border:#4DB6AC; }
+
+/* ===== TEMA TEEN ===== */
+[data-theme="teen"] {
+  --bg:#0d0d1a; --card:#1f1f3d; --text:#ffffff; --text2:#9d9dd0;
+  --primary:#ffd23f; --primary2:#ffd23f; --accent:#4f46e5;
+  --success:#22c55e; --danger:#ef4444; --warning:#ffd23f; --info:#3b82f6;
+  --border:#3a3a6e; --shadow:0 4px 20px rgba(0,0,0,0.4);
+  --mascote-border:#ffd23f; --radius:16px;
+}
+[data-theme="teen"] header { background:#16162e; border-bottom:2px solid #3a3a6e; }
+[data-theme="teen"] nav { background:#16162e; border-top:2px solid #3a3a6e; }
+[data-theme="teen"] .mascote-box { background:#1f1f3d; border-color:#ffd23f; }
+[data-theme="teen"] .mascote-label { color:#9d9dd0; }
+[data-theme="teen"] .subnav button { background:#202040; color:#9d9dd0; border-color:#3a3a6e; }
+[data-theme="teen"] .subnav button.active { background:#33330f; color:#ffd23f; border-color:#ffd23f; }
+[data-theme="teen"] .cartao { background:#1f1f3d; border-color:#3a3a6e; color:#fff; }
+[data-theme="teen"] .cartao:active { background:#33336b; }
+[data-theme="teen"] .cartao.sim { background:#14532d; border-color:#22c55e; }
+[data-theme="teen"] .cartao.nao { background:#5b1616; border-color:#ef4444; }
+[data-theme="teen"] .secao { background:#15152c; border-color:#3a3a6e; }
+[data-theme="teen"] .item-lista { background:#202040; border-color:#3a3a6e; }
+[data-theme="teen"] .radio-linha .opcao { background:#202040; border-color:#3a3a6e; color:#fff; }
+[data-theme="teen"] .radio-linha .opcao.sel { background:#33330f; color:#ffd23f; border-color:#ffd23f; }
+[data-theme="teen"] input, [data-theme="teen"] select, [data-theme="teen"] textarea { background:#0d0d1a; color:#fff; border-color:#3a3a6e; }
+[data-theme="teen"] .btn2 { background:#2c2c54; color:#fff; border:2px solid #3a3a6e; }
+[data-theme="teen"] .badge { background:#2c2c54; color:#c9f7c9; }
+[data-theme="teen"] .badge.on { background:#123d1f; color:#7dff9b; }
+[data-theme="teen"] .kpi { background:#20204a; }
+[data-theme="teen"] .barra-fundo { background:#20204a; }
+[data-theme="teen"] .ia-box { background:linear-gradient(135deg,#1a1a3e,#0f0f2a); border-color:#4f46e5; }
+[data-theme="teen"] .ia-msg { background:#0d0d1a; }
+[data-theme="teen"] .timer-box { background:#0d0d1a; }
+[data-theme="teen"] .frase-treino { background:#202040; }
+[data-theme="teen"] .incentivo { background:#14532d; color:#bbf7d0; }
+[data-theme="teen"] .cartao-destaque { background:linear-gradient(135deg,#2a2a5a,#1f1f3d); border-color:#3a3a6e; }
+[data-theme="teen"] .ia-btn { background:#4f46e5; color:#fff; }
+[data-theme="teen"] .btn-perigo { background:#5b1616; color:#ffb3b3; border-color:#ef4444; }
+[data-theme="teen"] .btn-verde { background:#14532d; color:#bbf7d0; border-color:#22c55e; }
+[data-theme="teen"] .btn-azul { background:#1e3a8a; color:#bfdbfe; border-color:#3b82f6; }
+[data-theme="teen"] .barra-fill { background:linear-gradient(90deg,#22c55e,#4ade80); }
+[data-theme="teen"] .pinbox { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="teen"] .history { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="teen"] .history li { border-color:#3a3a6e; }
+[data-theme="teen"] .config-section { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="teen"] .theme-opt { border-color:transparent; }
+[data-theme="teen"] .theme-opt.selected { border-color:#ffd23f; box-shadow:0 0 0 3px #3a3a6e; }
+[data-theme="teen"] .modal-box { background:#1f1f3d; }
+[data-theme="teen"] .dash-card { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="teen"] .metric { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="teen"] .contact-card { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="teen"] .formcard { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="teen"] .preview { background:#0d0d1a; border-color:#3a3a6e; }
+[data-theme="teen"] .tts { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="teen"] .tts input { background:#0d0d1a; }
+[data-theme="teen"] .crisis-btn { background:#1E1E2E; border-color:#333; color:#E0E0E0; }
+[data-theme="teen"] .crisis-btn.full { background:#2A1A1A; border-color:#E57373; }
+[data-theme="teen"] .crisis-float { background:#1E1E2E; border-color:#444; color:#E0E0E0; }
+[data-theme="teen"] #crisisMode { background:#12121E; }
+[data-theme="teen"] .crisis-header { border-color:#333; }
+[data-theme="teen"] .crisis-footer { border-color:#333; color:#888; }
+[data-theme="teen"] .chip { background:#202040; border-color:#3a3a6e; color:#fff; }
+[data-theme="teen"] .chip.selected { background:#ffd23f; color:#1a1a2e; border-color:#ffd23f; }
+
+/* ===== TEMA ESCOLA ===== */
+[data-theme="escola"] {
+  --bg:#0d0d1a; --card:#1f1f3d; --text:#ffffff; --text2:#9d9dd0;
+  --primary:#ffd23f; --primary2:#ffd23f; --accent:#4f46e5;
+  --success:#22c55e; --danger:#ef4444; --warning:#ffd23f; --info:#3b82f6;
+  --border:#3a3a6e; --shadow:0 4px 20px rgba(0,0,0,0.4);
+  --mascote-border:#ffd23f; --radius:16px;
+}
+[data-theme="escola"] header { background:#16162e; border-bottom:2px solid #3a3a6e; }
+[data-theme="escola"] nav { background:#16162e; border-top:2px solid #3a3a6e; }
+[data-theme="escola"] .mascote-box { background:#1f1f3d; border-color:#ffd23f; }
+[data-theme="escola"] .mascote-label { color:#9d9dd0; }
+[data-theme="escola"] .subnav button { background:#202040; color:#9d9dd0; border-color:#3a3a6e; }
+[data-theme="escola"] .subnav button.active { background:#33330f; color:#ffd23f; border-color:#ffd23f; }
+[data-theme="escola"] .cartao { background:#1f1f3d; border-color:#3a3a6e; color:#fff; }
+[data-theme="escola"] .cartao:active { background:#33336b; }
+[data-theme="escola"] .cartao.sim { background:#14532d; border-color:#22c55e; }
+[data-theme="escola"] .cartao.nao { background:#5b1616; border-color:#ef4444; }
+[data-theme="escola"] .secao { background:#15152c; border-color:#3a3a6e; }
+[data-theme="escola"] .item-lista { background:#202040; border-color:#3a3a6e; }
+[data-theme="escola"] .radio-linha .opcao { background:#202040; border-color:#3a3a6e; color:#fff; }
+[data-theme="escola"] .radio-linha .opcao.sel { background:#33330f; color:#ffd23f; border-color:#ffd23f; }
+[data-theme="escola"] input, [data-theme="escola"] select, [data-theme="escola"] textarea { background:#0d0d1a; color:#fff; border-color:#3a3a6e; }
+[data-theme="escola"] .btn2 { background:#2c2c54; color:#fff; border:2px solid #3a3a6e; }
+[data-theme="escola"] .badge { background:#2c2c54; color:#c9f7c9; }
+[data-theme="escola"] .badge.on { background:#123d1f; color:#7dff9b; }
+[data-theme="escola"] .kpi { background:#20204a; }
+[data-theme="escola"] .barra-fundo { background:#20204a; }
+[data-theme="escola"] .pinbox { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="escola"] .history { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="escola"] .history li { border-color:#3a3a6e; }
+[data-theme="escola"] .config-section { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="escola"] .theme-opt { border-color:transparent; }
+[data-theme="escola"] .theme-opt.selected { border-color:#ffd23f; box-shadow:0 0 0 3px #3a3a6e; }
+[data-theme="escola"] .modal-box { background:#1f1f3d; }
+[data-theme="escola"] .dash-card { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="escola"] .metric { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="escola"] .contact-card { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="escola"] .formcard { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="escola"] .preview { background:#0d0d1a; border-color:#3a3a6e; }
+[data-theme="escola"] .tts { background:#1f1f3d; border-color:#3a3a6e; }
+[data-theme="escola"] .tts input { background:#0d0d1a; }
+[data-theme="escola"] .crisis-btn { background:#1E1E2E; border-color:#333; color:#E0E0E0; }
+[data-theme="escola"] .crisis-btn.full { background:#2A1A1A; border-color:#E57373; }
+[data-theme="escola"] .crisis-float { background:#1E1E2E; border-color:#444; color:#E0E0E0; }
+[data-theme="escola"] #crisisMode { background:#12121E; }
+[data-theme="escola"] .crisis-header { border-color:#333; }
+[data-theme="escola"] .crisis-footer { border-color:#333; color:#888; }
+[data-theme="escola"] .chip { background:#202040; border-color:#3a3a6e; color:#fff; }
+[data-theme="escola"] .chip.selected { background:#ffd23f; color:#1a1a2e; border-color:#ffd23f; }
+
+/* ===== BASE ===== */
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Roboto,Inter,sans-serif;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+body{background:var(--bg);color:var(--text);min-height:100vh;transition:background .4s,color .4s;overflow-x:hidden;font-size:16px}
+
+header{background:linear-gradient(135deg,var(--primary) 0%,var(--primary2) 100%);color:white;padding:16px;text-align:center;font-size:1.15rem;font-weight:700;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.12)}
+.tbtn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.25);border:none;border-radius:20px;padding:6px 14px;color:white;font-size:.72rem;cursor:pointer;font-weight:600}
+
+.container{padding:14px;max-width:900px;margin:0 auto;padding-bottom:120px}
+.tab{display:none;animation:fade .3s ease-out}
+.tab.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* MASCOTE */
+.mascote-wrap{text-align:center;margin:10px 0 18px}
+.mascote-box{width:160px;height:160px;margin:0 auto;border-radius:50%;border:5px solid var(--mascote-border);background:var(--card);box-shadow:var(--shadow);overflow:hidden;transition:.3s;position:relative}
+.mascote-box.talking{border-color:var(--success);animation:bounce .4s infinite alternate}
+@keyframes bounce{from{transform:scale(1)}to{transform:scale(1.06)}}
+.mascote-box video,.mascote-box img{width:100%;height:100%;object-fit:cover;display:block}
+.mascote-label{margin-top:8px;font-size:.88rem;color:var(--text2);font-weight:600;min-height:22px}
+
+/* SUBNAVEGAÇÃO TEEN/ESCOLA */
+.subnav{display:flex;gap:8px;overflow-x:auto;padding:10px 0;margin-bottom:10px;scrollbar-width:none}
+.subnav::-webkit-scrollbar{display:none}
+.subnav button{flex:1;min-width:80px;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:10px 6px;color:var(--text);font-size:.75rem;font-weight:700;cursor:pointer;white-space:nowrap}
+.subnav button.active{background:var(--primary);color:#1a1a2e;border-color:var(--primary)}
+.subnav button:active{transform:scale(.95)}
+
+/* GRIDS E CARTOES */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+@media(min-width:500px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+.card{background:var(--card);border-radius:16px;padding:14px;text-align:center;box-shadow:var(--shadow);border:3px solid transparent;cursor:pointer;transition:.15s;min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.card:active{transform:scale(.95)}
+.card.done{border-color:var(--success);opacity:.8}
+.card.done::after{content:"✓";display:block;color:var(--success);font-weight:800;font-size:.9rem;margin-top:4px}
+.card .imgbox{width:100%;height:80px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:2.2rem;overflow:hidden;margin-bottom:6px}
+.card .imgbox img{width:100%;height:100%;object-fit:cover}
+.card h4{margin-top:4px;font-size:.9rem;font-weight:700}
+.card small{color:var(--text2);font-size:.75rem}
+
+.aac{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:480px){.aac{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:700px){.aac{grid-template-columns:repeat(4,1fr)}}
+.aac-btn{background:var(--card);border:2.5px solid var(--primary2);border-radius:16px;padding:18px 6px;font-size:1rem;font-weight:700;color:var(--text);cursor:pointer;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;gap:6px;min-height:100px;justify-content:center;transition:.15s}
+.aac-btn:active{background:var(--primary);color:white;border-color:var(--primary);transform:scale(.96)}
+.aac-btn span{font-size:2.2rem}
+
+/* TEEN / ESCOLA CARTOES */
+.cartao{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:14px 6px;text-align:center;cursor:pointer;color:var(--text);font-weight:bold;font-size:calc(var(--fs,16px)*.9);line-height:1.15;user-select:none;transition:transform .08s}
+.cartao:active{transform:scale(.94);background:#33336b}
+.cartao .emo{display:block;font-size:var(--img,40px);margin-bottom:8px;line-height:1}
+.cartao.grande{padding:26px 10px;font-size:calc(var(--fs,16px)*1.15)}
+.cartao.sim{background:#14532d;border-color:#22c55e}
+.cartao.nao{background:#5b1616;border-color:#ef4444}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 0}
+.cartao-destaque{background:linear-gradient(135deg,#2a2a5a,#1f1f3d);border:2px solid var(--border);border-radius:var(--radius);padding:18px 8px;text-align:center;cursor:pointer;font-weight:bold;font-size:calc(var(--fs,16px)*.95);transition:transform .08s;color:#fff}
+.cartao-destaque:active{transform:scale(.94)}
+.cartao-destaque .emo{display:block;font-size:calc(var(--img,40px)*1.2);margin-bottom:8px}
+
+/* BOTÕES */
+.btn-sos{width:100%;background:linear-gradient(135deg,#E57373 0%,#EF5350 100%);color:white;font-size:1.25rem;font-weight:800;padding:22px 16px;border:none;border-radius:18px;margin-bottom:14px;box-shadow:0 8px 24px rgba(239,83,80,.3);cursor:pointer;position:relative;overflow:hidden;letter-spacing:.5px}
+.btn-sos:active{transform:scale(.97)}
+.btn-sos small{display:block;font-size:.78rem;font-weight:500;margin-top:4px;opacity:.9}
+.sos-bar{position:absolute;bottom:0;left:0;height:5px;background:rgba(255,255,255,.5);width:0%;transition:width .05s linear}
+
+.btn-g{width:100%;padding:14px;background:var(--success);color:#1B5E20;border:none;border-radius:12px;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:4px}
+.btn-r{width:100%;padding:14px;background:var(--danger);color:#B71C1C;border:none;border-radius:12px;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-b{width:100%;padding:14px;background:var(--primary);color:#1a1a2e;border:none;border-radius:12px;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn-w{width:100%;padding:14px;background:var(--warning);color:#5D4037;border:none;border-radius:12px;font-size:1.05rem;font-weight:700;cursor:pointer;margin-top:10px}
+.btn{background:var(--primary);color:#1a1a2e;border:none;border-radius:12px;padding:13px 20px;font-size:1rem;font-weight:700;cursor:pointer;margin:6px 4px 6px 0}
+.btn:active{transform:scale(.96)}
+.btn2{background:#2c2c54;color:#fff;border:2px solid var(--border);border-radius:12px;padding:13px 20px;font-size:1rem;font-weight:700;cursor:pointer;margin:6px 4px 6px 0}
+.btn-perigo{background:#5b1616;color:#ffb3b3;border:2px solid #ef4444;border-radius:12px;padding:13px 20px;font-size:1rem;font-weight:700;cursor:pointer;margin:6px 4px 6px 0}
+.btn-verde{background:#14532d;color:#bbf7d0;border:2px solid #22c55e;border-radius:12px;padding:13px 20px;font-size:1rem;font-weight:700;cursor:pointer;margin:6px 4px 6px 0}
+.btn-azul{background:#1e3a8a;color:#bfdbfe;border:2px solid #3b82f6;border-radius:12px;padding:13px 20px;font-size:1rem;font-weight:700;cursor:pointer;margin:6px 4px 6px 0}
+
+/* FORMULÁRIOS */
+.tts{background:var(--card);border-radius:14px;padding:12px;margin-top:14px;display:flex;gap:8px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.tts input{flex:1;padding:12px;border:2px solid var(--border);border-radius:10px;font-size:1.05rem;background:var(--bg);color:var(--text);font-weight:500}
+.tts button{padding:12px 18px;background:var(--primary);color:#1a1a2e;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:.95rem;white-space:nowrap}
+
+input,select,textarea{width:100%;background:var(--bg);color:var(--text);border:2px solid var(--border);border-radius:12px;padding:12px;font-size:1rem;margin:4px 0;font-family:inherit}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);outline:none}
+label{display:block;margin:10px 0 2px;color:var(--text2);font-size:.88rem;font-weight:700}
+textarea{min-height:80px;resize:vertical}
+
+.formcard{background:var(--card);border-radius:14px;padding:18px;box-shadow:var(--shadow);border:1px solid var(--border);margin-top:12px}
+.fg{margin-bottom:14px}
+
+.preview{width:100%;height:140px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;margin-top:8px;overflow:hidden;border:2px dashed var(--border)}
+.preview img{width:100%;height:100%;object-fit:cover}
+.preview span{color:var(--text2);font-size:.88rem;text-align:center;padding:10px}
+
+/* SEÇÕES TEEN/ESCOLA */
+.secao{background:var(--card);border:2px solid var(--border);border-radius:var(--radius);margin:12px 0;padding:14px}
+.secao h3{margin-bottom:8px;font-size:1rem;color:var(--primary)}
+.linha{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.item-lista{display:flex;align-items:center;gap:8px;background:#202040;border:1px solid var(--border);border-radius:10px;padding:8px 10px;margin:6px 0;font-size:.85rem;color:var(--text)}
+.item-lista .txt{flex:1}
+.item-lista .x{background:#5b1616;color:#ffb3b3;border:none;border-radius:8px;padding:6px 10px;font-weight:700;cursor:pointer}
+.dica{color:var(--text2);font-size:.82rem;margin:6px 0}
+.radio-linha{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0}
+.radio-linha .opcao{flex:1;min-width:120px;background:#202040;border:2px solid var(--border);border-radius:12px;padding:12px;text-align:center;cursor:pointer;font-weight:bold;font-size:.85rem;color:var(--text)}
+.radio-linha .opcao.sel{border-color:var(--primary);background:#33330f;color:var(--primary)}
+
+.ia-box{background:linear-gradient(135deg,#1a1a3e,#0f0f2a);border:2px solid #4f46e5;border-radius:16px;padding:14px;margin:12px 0}
+.ia-cab{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ia-avatar{font-size:32px}
+.ia-nome{color:#a5b4fc;font-weight:bold}
+.ia-msg{background:#0d0d1a;border-radius:12px;padding:12px;font-size:.85rem;line-height:1.4;color:#e0e7ff;margin-bottom:10px}
+.ia-btn{background:#4f46e5;color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:bold;cursor:pointer;font-size:.8rem;margin:4px 4px 0 0}
+.ia-btn:active{transform:scale(.96)}
+
+.frase-treino{background:#202040;border:2px solid var(--border);border-radius:14px;padding:14px;margin:10px 0;font-size:1rem;color:var(--text);cursor:pointer}
+.frase-treino .emoji{font-size:28px;margin-right:8px;vertical-align:middle}
+.incentivo{background:#14532d;border:2px solid #22c55e;color:#bbf7d0;border-radius:12px;padding:12px;text-align:center;font-weight:bold;margin:10px 0;font-size:.95rem}
+
+.timer-box{background:#0d0d1a;border:2px solid var(--border);border-radius:14px;padding:16px;text-align:center;margin:10px 0}
+.timer-num{font-size:2.5rem;color:var(--primary);font-weight:bold;font-family:monospace}
+.timer-label{color:var(--text2);font-size:.85rem}
+
+/* RELATÓRIOS / KPI */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.dash-card{background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
+.dash-card h4{font-size:1.8rem;color:var(--primary);margin:4px 0}
+.dash-card p{font-size:.82rem;color:var(--text2)}
+.metric{background:var(--card);padding:22px 16px;border-radius:16px;text-align:center;margin-bottom:12px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.metric h2{font-size:2.6rem;color:var(--primary);margin:6px 0;font-weight:800}
+.metric p{color:var(--text2);font-size:.9rem}
+.kpi-linha{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.kpi{flex:1;min-width:100px;background:#20204a;border-radius:12px;padding:12px;text-align:center}
+.kpi .n{font-size:1.8rem;color:var(--primary);font-weight:bold}
+.kpi .l{font-size:.7rem;color:var(--text2)}
+.barra-linha{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.8rem}
+.barra-linha .palavra{width:45%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)}
+.barra-fundo{flex:1;background:#20204a;border-radius:8px;height:22px;position:relative}
+.barra-fill{background:linear-gradient(90deg,#22c55e,#4ade80);height:100%;border-radius:8px}
+.barra-num{width:34px;text-align:right;color:var(--primary);font-weight:bold}
+
+/* HISTÓRICO */
+.history{background:var(--card);padding:14px;border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);list-style:none;margin-top:10px}
+.history li{padding:10px;border-bottom:1px solid var(--border);font-size:.86rem;display:flex;justify-content:space-between;align-items:center;color:var(--text)}
+.history li:last-child{border-bottom:none}
+.history li strong{color:var(--primary)}
+.empty{text-align:center;color:var(--text2);padding:24px;font-size:.92rem}
+
+/* PIN */
+.pinbox{background:var(--card);border-radius:18px;padding:28px 18px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--border);margin-top:16px}
+.pinbox p{color:var(--text2);margin:8px 0 16px;font-size:.92rem}
+.pin-in{display:flex;justify-content:center;gap:10px}
+.pin-in input{width:56px;height:56px;font-size:1.6rem;text-align:center;border:2.5px solid var(--border);border-radius:12px;background:var(--bg);color:var(--text);font-weight:700}
+.pin-err{color:var(--danger);margin-top:10px;font-size:.88rem;display:none;font-weight:600}
+
+/* CONTATOS */
+.contact-card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:var(--shadow);border:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.contact-info{flex:1}
+.contact-info strong{display:block;font-size:.95rem;color:var(--text)}
+.contact-info small{color:var(--text2);font-size:.78rem}
+.contact-badge{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.7rem;font-weight:700;margin-top:4px}
+.badge-critical{background:var(--danger);color:#B71C1C}
+.badge-standard{background:var(--info);color:#0D47A1}
+.badge-sms{background:var(--warning);color:#5D4037}
+.contact-status{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.status-green{background:var(--success)}
+.status-yellow{background:var(--warning)}
+.status-red{background:var(--danger)}
+
+/* CONFIGURAÇÕES */
+.config-section{background:var(--card);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.config-section h4{margin-bottom:10px;font-size:1rem;color:var(--text)}
+.theme-opt{display:inline-block;width:42px;height:42px;border-radius:50%;margin:4px;cursor:pointer;border:3px solid transparent;transition:.2s}
+.theme-opt:active{transform:scale(.9)}
+.theme-opt.selected{border-color:var(--text);box-shadow:0 0 0 3px var(--primary2)}
+.theme-azul{background:linear-gradient(135deg,#E0F2F1,#4DB6AC)}
+.theme-verde{background:linear-gradient(135deg,#E8F5E9,#66BB6A)}
+.theme-lavanda{background:linear-gradient(135deg,#F3E5F5,#AB47BC)}
+.theme-creme{background:linear-gradient(135deg,#FFF8E1,#FFB74D)}
+.theme-escuro{background:linear-gradient(135deg,#0D1B1E,#4DB6AC)}
+.theme-teen{background:linear-gradient(135deg,#0d0d1a,#ffd23f)}
+.theme-escola{background:linear-gradient(135deg,#0d0d1a,#ffd23f)}
+
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{background:var(--bg);border:2px solid var(--border);border-radius:20px;padding:8px 16px;font-size:.85rem;font-weight:600;color:var(--text);cursor:pointer;user-select:none}
+.chip.selected{background:var(--primary);color:#1a1a2e;border-color:var(--primary)}
+
+/* MODAIS */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:2000;align-items:center;justify-content:center;padding:20px}
+.modal.active{display:flex}
+.modal-box{background:var(--card);border-radius:18px;padding:24px;width:100%;max-width:420px;box-shadow:0 12px 40px rgba(0,0,0,.3);animation:modalIn .2s ease-out;color:var(--text)}
+@keyframes modalIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.modal-box h3{margin:0 0 14px;font-size:1.15rem;color:var(--text)}
+.modal-box p{color:var(--text2);font-size:.9rem;margin-bottom:16px;line-height:1.5}
+.modal-btns{display:flex;gap:10px}
+.modal-btns button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:.95rem}
+.btn-modal-primary{background:var(--primary);color:#1a1a2e}
+.btn-modal-secondary{background:var(--bg);color:var(--text);border:2px solid var(--border)!important}
+
+/* CRISE */
+.crisis-float{position:fixed;top:14px;left:14px;z-index:99;background:#1E1E2E;color:#E0E0E0;border:2px solid #444;border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.4);opacity:.9}
+.crisis-float:active{transform:scale(.9)}
+#crisisMode{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#12121E;z-index:1000;flex-direction:column;padding:20px;overflow-y:auto}
+#crisisMode.active{display:flex}
+.crisis-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #333}
+.crisis-header h2{color:#E0E0E0;font-size:1.4rem;font-weight:800}
+.crisis-close{background:#333;color:#E0E0E0;border:none;border-radius:12px;padding:10px 18px;font-size:.9rem;font-weight:700;cursor:pointer}
+.crisis-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;align-content:start}
+.crisis-btn{background:#1E1E2E;border:3px solid #333;border-radius:20px;padding:28px 12px;text-align:center;color:#E0E0E0;cursor:pointer;transition:.1s;display:flex;flex-direction:column;align-items:center;gap:10px;min-height:140px;justify-content:center}
+.crisis-btn:active{background:#2A2A3A;border-color:#555;transform:scale(.97)}
+.crisis-btn span{font-size:3rem}
+.crisis-btn h4{font-size:1.15rem;font-weight:700}
+.crisis-btn.full{grid-column:1/-1;background:#2A1A1A;border-color:#E57373}
+.crisis-btn.full:active{background:#3A2A2A}
+.crisis-footer{color:#888;text-align:center;font-size:.85rem;margin-top:16px;padding-top:12px;border-top:1px solid #333}
+
+/* NAVEGAÇÃO PRINCIPAL */
+nav{position:fixed;bottom:0;left:0;width:100%;background:var(--card);display:flex;justify-content:space-around;border-top:2px solid var(--border);z-index:100;padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:0 -4px 12px rgba(0,0,0,.08);overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:1;min-width:70px;padding:14px 2px 10px;border:none;background:none;font-size:.65rem;font-weight:700;color:var(--text2);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.2s;white-space:nowrap}
+nav button.active{color:var(--primary);border-top:4px solid var(--primary);margin-top:-2px}
+nav button span{font-size:1.3rem}
+
+/* UTILITÁRIOS */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.hidden{display:none!important}
+.text-center{text-align:center}
+.mt-1{margin-top:10px}
+.mb-1{margin-bottom:10px}
+
+/* BADGE */
+.badge{display:inline-block;background:var(--primary);color:#1a1a2e;padding:3px 10px;border-radius:12px;font-size:.72rem;font-weight:700;margin-left:auto}
+.badge.on{background:#123d1f;color:#7dff9b}
+
+/* ===== DINOBO v4.0 + TRIAL ===== */
+.dinobo-bubble{display:none;position:relative;margin:0 auto 10px;max-width:280px;background:var(--card);border:2px solid var(--primary);border-radius:16px;padding:10px 14px;font-size:.85rem;font-weight:600;color:var(--text);box-shadow:var(--shadow)}
+.dinobo-bubble.show{display:block;animation:fade .3s ease-out}
+.dinobo-bubble:after{content:"";position:absolute;bottom:-10px;left:50%;margin-left:-8px;border:8px solid transparent;border-top-color:var(--primary)}
+#trialBanner{display:none;background:linear-gradient(135deg,#FFF8E1,#FFE082);color:#5D4037;padding:10px 14px;text-align:center;font-size:.82rem;font-weight:700;position:sticky;top:58px;z-index:98;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+#trialBanner button{background:#5D4037;color:#FFF8E1;border:none;border-radius:10px;padding:6px 12px;font-weight:700;margin-left:8px;cursor:pointer;font-size:.78rem}
+#lockScreen{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#E0F2F1,#B2DFDB);z-index:5000;padding:24px;overflow-y:auto}
+#lockScreen.active{display:block}
+.lock-box{max-width:420px;margin:24px auto;background:#fff;border-radius:20px;padding:24px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.15)}
+.lock-box video{width:170px;height:170px;border-radius:50%;object-fit:cover;border:5px solid #4DB6AC}
+.lock-box h2{color:#263238;font-size:1.2rem;margin:12px 0 6px}
+.lock-preco{font-size:2.2rem;font-weight:800;color:#00897B;margin:6px 0}
+.btn-lock{width:100%;padding:16px;background:#00897B;color:#fff;border:none;border-radius:14px;font-size:1.05rem;font-weight:800;cursor:pointer;margin-top:12px}
+.btn-lock:active{transform:scale(.97)}
+.lock-info{font-size:.82rem;color:#78909C;margin-top:8px;line-height:1.5}
+.lock-links{margin-top:14px;font-size:.75rem;color:#90A4AE}
+.lock-links a{color:#00897B}
+#lockStatus{font-size:.8rem;color:#00897B;margin-top:10px;font-weight:700;min-height:18px}
+</style>
+</head>
+<body>
+
+<header>Falamigo AAC<button class="tbtn" onclick="goTab('config',document.querySelectorAll('nav button')[5])" id="tbtn">Tema</button></header>
+
+<div id="trialBanner"><span id="trialTxt"></span><button onclick="desbloquearAgora()">Desbloquear acesso completo</button></div>
+
+<div class="crisis-float" onclick="openCrisis()" title="Modo Emergência">🛡️</div>
+
+<div class="container">
+
+<!-- ==================== ABA CRIANÇA ==================== -->
+<div id="tab-child" class="tab active">
+  <div class="mascote-wrap">
+    <div class="mascote-box" id="mascote">
+      <video id="mascoteVideo" muted playsinline loop preload="auto" poster="dinobo.jpeg" style="display:none">
+        <source src="dinobo.mp4" type="video/mp4">
+      </video>
+      <img id="mascoteImg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23E0F2F1'/%3E%3Ccircle cx='100' cy='100' r='80' fill='%234DB6AC'/%3E%3Cellipse cx='70' cy='80' rx='12' ry='15' fill='white'/%3E%3Cellipse cx='130' cy='80' rx='12' ry='15' fill='white'/%3E%3Ccircle cx='70' cy='80' r='7' fill='%23263238'/%3E%3Ccircle cx='130' cy='80' r='7' fill='%23263238'/%3E%3Cpath d='M60 125 Q100 155 140 125' stroke='%23263238' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M50 60 Q70 40 90 60' stroke='%23263238' stroke-width='3' fill='none'/%3E%3Cpath d='M110 60 Q130 40 150 60' stroke='%23263238' stroke-width='3' fill='none'/%3E%3C/svg%3E" alt="Mascote">
+    </div>
+    <div class="dinobo-bubble" id="bubble"></div>
+    <div class="mascote-label" id="mlabel">Toque nos botões para eu falar!</div>
+  </div>
+
+  <div style="background:var(--card);border-radius:14px;padding:12px 16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border);display:flex;align-items:center;gap:10px">
+    <span style="font-size:1.4rem">🧠</span>
+    <div style="flex:1">
+      <div style="font-size:.85rem;font-weight:700;color:var(--text)">Modo Contexto Ativo</div>
+      <div style="font-size:.78rem;color:var(--text2)" id="contextLabel">Analisando horário...</div>
+    </div>
+    <span class="badge" id="contextBadge">AUTO</span>
+  </div>
+
+  <button class="btn-sos" id="btnSOS" ontouchstart="sosStart(event)" ontouchend="sosCancel(event)" onmousedown="sosStart(event)" onmouseup="sosCancel(event)" onmouseleave="sosCancel(event)">
+    🚨 SOCORRO / AJUDA<small>Segure por 3 segundos para ativar o Modo Crise</small><div class="sos-bar" id="sosBar"></div>
+  </button>
+
+  <h3>📍 Rotinas do Dia</h3>
+  <div class="grid" id="routinesBox"></div>
+
+  <h3>💬 Falar Agora <span class="badge" id="aacBadge">Casa</span></h3>
+  <div class="aac" id="aacBox"></div>
+
+  <div id="childCats"></div>
+
+  <div class="tts">
+    <input type="text" id="ttsInput" placeholder="Escreva algo para eu falar..." onkeydown="if(event.key==='Enter')falarInput()">
+    <button onclick="falarInput()">🔊 Falar</button>
+  </div>
+</div>
+
+<!-- ==================== ABA TEEN ==================== -->
+<div id="tab-teen" class="tab">
+  <div class="mascote-wrap">
+    <div class="mascote-box" id="mascoteTeen">
+      <video id="mascoteVideoTeen" muted playsinline loop preload="auto" poster="dinobo.jpeg" style="display:none">
+        <source src="dinobo.mp4" type="video/mp4">
+      </video>
+      <img id="mascoteImgTeen" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%230d0d1a'/%3E%3Ccircle cx='100' cy='100' r='80' fill='%234f46e5'/%3E%3Cellipse cx='70' cy='80' rx='12' ry='15' fill='white'/%3E%3Cellipse cx='130' cy='80' rx='12' ry='15' fill='white'/%3E%3Ccircle cx='70' cy='80' r='7' fill='%23ffd23f'/%3E%3Ccircle cx='130' cy='80' r='7' fill='%23ffd23f'/%3E%3Cpath d='M60 125 Q100 155 140 125' stroke='%23ffd23f' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M50 60 Q70 40 90 60' stroke='%23ffd23f' stroke-width='3' fill='none'/%3E%3Cpath d='M110 60 Q130 40 150 60' stroke='%23ffd23f' stroke-width='3' fill='none'/%3E%3C/svg%3E" alt="Mascote Teen">
+    </div>
+    <div class="dinobo-bubble" id="bubbleTeen"></div>
+    <div class="mascote-label" id="mlabelTeen">Toque nos botões para eu falar!</div>
+  </div>
+
+  <div class="subnav" id="teenSubnav">
+    <button class="active" onclick="teenGo('comunicar')">📢 Falar</button>
+    <button onclick="teenGo('escrever')">📝 Escrever</button>
+    <button onclick="teenGo('rotinas')">🌅 Rotinas</button>
+    <button onclick="teenGo('sinto')">😊 Sinto</button>
+    <button onclick="teenGo('preciso')">✋ Preciso</button>
+    <button onclick="teenGo('perguntas')">❓ Perguntas</button>
+    <button onclick="teenGo('idiomas')">🌍 Idiomas</button>
+    <button onclick="teenGo('treino')">🎯 Treino</button>
+    <button onclick="teenGo('meus-dados')">⭐ Meus</button>
+  </div>
+
+  <div id="teenContent"></div>
+</div>
+
+<!-- ==================== ABA ESCOLA ==================== -->
+<div id="tab-escola" class="tab">
+  <div class="mascote-wrap">
+    <div class="mascote-box" id="mascoteEscola">
+      <video id="mascoteVideoEscola" muted playsinline loop preload="auto" poster="dinobo.jpeg" style="display:none">
+        <source src="dinobo.mp4" type="video/mp4">
+      </video>
+      <img id="mascoteImgEscola" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%230d0d1a'/%3E%3Ccircle cx='100' cy='100' r='80' fill='%23ffd23f'/%3E%3Cellipse cx='70' cy='80' rx='12' ry='15' fill='white'/%3E%3Cellipse cx='130' cy='80' rx='12' ry='15' fill='white'/%3E%3Ccircle cx='70' cy='80' r='7' fill='%2316162e'/%3E%3Ccircle cx='130' cy='80' r='7' fill='%2316162e'/%3E%3Cpath d='M60 125 Q100 155 140 125' stroke='%2316162e' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Cpath d='M50 60 Q70 40 90 60' stroke='%2316162e' stroke-width='3' fill='none'/%3E%3Cpath d='M110 60 Q130 40 150 60' stroke='%2316162e' stroke-width='3' fill='none'/%3E%3C/svg%3E" alt="Mascote Escola">
+    </div>
+    <div class="dinobo-bubble" id="bubbleEscola"></div>
+    <div class="mascote-label" id="mlabelEscola">Toque nos botões para eu falar!</div>
+  </div>
+
+  <div class="subnav" id="escolaSubnav">
+    <button class="active" onclick="escolaGo('comunicar')">📢 Falar</button>
+    <button onclick="escolaGo('escrever')">✍️ Escrever</button>
+    <button onclick="escolaGo('rotinas')">🌅 Rotinas</button>
+    <button onclick="escolaGo('sobre')">👤 Sobre</button>
+    <button onclick="escolaGo('fichario')">📋 Fichário</button>
+    <button onclick="escolaGo('sinto')">😊 Sinto</button>
+    <button onclick="escolaGo('perguntas')">❓ Perguntas</button>
+    <button onclick="escolaGo('diario')">🍎 Diário</button>
+  </div>
+
+  <div id="escolaContent"></div>
+</div>
+
+<!-- ==================== ABA RESPONSÁVEIS ==================== -->
+<div id="tab-parents" class="tab">
+  <div id="pinScreen">
+    <div class="pinbox">
+      <h3>🔒 Área dos Responsáveis</h3>
+      <p>Digite o PIN de 4 dígitos</p>
+      <div class="pin-in">
+        <input type="password" maxlength="1" inputmode="numeric" onkeyup="pinMove(this,1)">
+        <input type="password" maxlength="1" inputmode="numeric" onkeyup="pinMove(this,2)">
+        <input type="password" maxlength="1" inputmode="numeric" onkeyup="pinMove(this,3)">
+        <input type="password" maxlength="1" inputmode="numeric" onkeyup="pinCheck(this)">
+      </div>
+      <div class="pin-err" id="pinErr">PIN incorreto. Tente novamente.</div>
+    </div>
+  </div>
+
+  <div id="parentsBox" style="display:none">
+    <h3>📋 Rede de Apoio</h3>
+    <div id="contactsList"></div>
+    <button class="btn-b" onclick="openContactForm()">➕ Adicionar Contato</button>
+
+    <h3>📸 Criar Pictograma</h3>
+    <div class="formcard">
+      <p style="font-size:.88rem;color:var(--text2);margin-bottom:12px">Tire uma foto do objeto para criar um novo botão de comunicação.</p>
+      <div class="fg">
+        <label>Foto do Objeto</label>
+        <input type="file" id="aiPhoto" accept="image/*" capture="environment" onchange="aiProcessPhoto(this)">
+      </div>
+      <div class="preview" id="aiPreview"><span>A prévia da foto aparecerá aqui</span></div>
+      <div class="fg" style="margin-top:10px">
+        <label>Palavra ou Frase</label>
+        <input type="text" id="aiWord" placeholder="Exemplo: Cachorro, Banho, Brincar">
+      </div>
+      <div class="fg">
+        <label>Categoria</label>
+        <select id="aiCategory">
+          <option value="quero">Quero / Preciso</option>
+          <option value="sinto">Sinto / Estou</option>
+          <option value="rotina">Rotina</option>
+          <option value="escola">Escola</option>
+        </select>
+      </div>
+      <button class="btn-g" onclick="aiSavePictogram()">✨ Criar e Salvar</button>
+    </div>
+
+    <h3>☁️ Sincronização</h3>
+    <div class="formcard">
+      <p style="font-size:.88rem;color:var(--text2);margin-bottom:12px">Sincronize os dados entre tablet, celular e escola.</p>
+      <button class="btn-b" onclick="exportData()">📤 Exportar Dados (JSON)</button>
+      <button class="btn-w" onclick="document.getElementById('importFile').click()">📥 Importar Dados</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
+      <button class="btn-g" onclick="generateQR()">🔗 Gerar Código QR</button>
+      <div id="qrArea" class="text-center mt-1"></div>
+    </div>
+
+    <h3>📝 Nova Rotina</h3>
+    <div class="formcard">
+      <form onsubmit="return addRotina(event)">
+        <div class="fg"><label>Nome da Atividade</label><input type="text" id="rtitle" required placeholder="Exemplo: Lavar as mãos"></div>
+        <div class="fg"><label>Horário</label><input type="time" id="rtime" required></div>
+        <div class="fg"><label>Foto (opcional)</label><input type="file" id="rimg" accept="image/*" capture="environment" onchange="previewImg(this)"></div>
+        <div class="preview" id="previewBox"><span>Prévia da foto</span></div>
+        <button type="submit" class="btn-g">➕ Salvar Rotina</button>
+      </form>
+    </div>
+
+    <button class="btn-r" onclick="limparTudo()">🗑️ Limpar Todos os Dados</button>
+  </div>
+</div>
+
+<!-- ==================== ABA DADOS ==================== -->
+<div id="tab-reports" class="tab">
+  <h3>📊 Painel de Evolução</h3>
+  <div class="dash-grid">
+    <div class="dash-card"><p>Comunicações Hoje</p><h4 id="dashToday">0</h4></div>
+    <div class="dash-card"><p>Iniciativa Própria</p><h4 id="dashInit">0%</h4></div>
+    <div class="dash-card"><p>Categoria Mais Usada</p><h4 id="dashTopCat">-</h4></div>
+    <div class="dash-card"><p>Tempo Médio de Resposta</p><h4 id="dashTime">1.2s</h4></div>
+  </div>
+  <div class="metric"><p>Taxa de Conclusão de Rotinas</p><h2 id="mRate">0%</h2></div>
+  <div class="metric"><p>Rotinas Concluídas</p><h2 id="mDone">0 / 0</h2></div>
+  <h3>📈 Uso por Categoria (7 dias)</h3>
+  <div id="categoryChart" style="background:var(--card);border-radius:14px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:14px">
+    <div class="empty">Dados sendo coletados...</div>
+  </div>
+  <h3>🕐 Histórico de Interações</h3>
+  <ul class="history" id="histBox"></ul>
+  <button class="btn-b" onclick="exportReport()">📄 Exportar Relatório para o Terapeuta</button>
+</div>
+
+<!-- ==================== ABA AJUSTES ==================== -->
+<div id="tab-config" class="tab">
+  <h3>⚙️ Configurações</h3>
+  <div class="config-section">
+    <h4>🎨 Tema de Cores</h4>
+    <p style="font-size:.82rem;color:var(--text2);margin-bottom:8px">Escolha uma cor que deixe a criança mais calma:</p>
+    <div style="text-align:center">
+      <div class="theme-opt theme-azul selected" onclick="setTheme('azul',this)" title="Azul Calma"></div>
+      <div class="theme-opt theme-verde" onclick="setTheme('verde-menta',this)" title="Verde Menta"></div>
+      <div class="theme-opt theme-lavanda" onclick="setTheme('lavanda',this)" title="Lavanda"></div>
+      <div class="theme-opt theme-creme" onclick="setTheme('creme',this)" title="Creme"></div>
+      <div class="theme-opt theme-escuro" onclick="setTheme('escuro',this)" title="Escuro"></div>
+      <div class="theme-opt theme-teen" onclick="setTheme('teen',this)" title="Teen"></div>
+      <div class="theme-opt theme-escola" onclick="setTheme('escola',this)" title="Escola"></div>
+    </div>
+  </div>
+  <div class="config-section">
+    <h4>🌐 Idioma</h4>
+    <div class="fg">
+      <select id="langSelect" onchange="changeLanguage(this.value)">
+        <option value="pt-BR">🇧🇷 Português (Brasil)</option>
+        <option value="en-US">🇺🇸 English (USA)</option>
+        <option value="es-ES">🇪🇸 Español (España)</option>
+      </select>
+    </div>
+  </div>
+  <div class="config-section">
+    <h4>🔊 Voz da IA</h4>
+    <div class="fg">
+      <label>Voz selecionada</label>
+      <select id="voiceSelect" onchange="changeVoice(this.value)">
+        <option value="">Padrão do dispositivo</option>
+      </select>
+    </div>
+    <button class="btn-b" onclick="testVoice()">🎧 Testar Voz</button>
+    <p style="font-size:.78rem;color:var(--text2);margin-top:8px">Se não aparecerem opções, o navegador usará a voz padrão do sistema.</p>
+  </div>
+  <div class="config-section">
+    <h4>🔒 Segurança</h4>
+    <div class="fg">
+      <label>Alterar PIN (4 dígitos)</label>
+      <input type="password" id="newPin" maxlength="4" inputmode="numeric" placeholder="Novo PIN">
+    </div>
+    <button class="btn-g" onclick="savePin()">💾 Salvar Novo PIN</button>
+  </div>
+  <div class="config-section">
+    <h4>ℹ️ Sobre</h4>
+    <p style="font-size:.85rem;color:var(--text2);line-height:1.6">
+      <strong>Falamigo AAC</strong><br>
+      Versão 4.0 Unificado — com Dinobo + Trial<br><br>
+      Desenvolvido para auxiliar na comunicação de crianças e adolescentes com TEA.<br>
+      HGC Software Solutions - Joinville/SC
+    </p>
+  </div>
+</div>
+
+</div>
+
+<!-- ==================== MODAL CRISE ==================== -->
+<div id="crisisMode">
+  <div class="crisis-header">
+    <h2>🛡️ MODO EMERGÊNCIA</h2>
+    <button class="crisis-close" onclick="closeCrisis()">✕ Fechar</button>
+  </div>
+  <div class="crisis-grid">
+    <button class="crisis-btn" onclick="crisisSpeak('Muito barulho! Preciso de abafador ou sair.')">
+      <span>🔊</span><h4>MUITO BARULHO</h4>
+    </button>
+    <button class="crisis-btn" onclick="crisisSpeak('Luz forte! Estou incomodado.')">
+      <span>💡</span><h4>LUZ FORTE</h4>
+    </button>
+    <button class="crisis-btn" onclick="crisisSpeak('Preciso sair daqui agora!')">
+      <span>🚪</span><h4>PRECISO SAIR</h4>
+    </button>
+    <button class="crisis-btn" onclick="crisisSpeak('Preciso de espaço. Não me toque.')">
+      <span>🛑</span><h4>ESPAÇO / PAUSA</h4>
+    </button>
+    <button class="crisis-btn full" onclick="crisisSpeak('Estou com dor!')">
+      <span>🤕</span><h4>ESTOU COM DOR</h4>
+    </button>
+  </div>
+  <div class="crisis-footer">
+    Toque uma vez para comunicar imediatamente.<br>
+    Notificação silenciosa enviada aos cuidadores.
+  </div>
+</div>
+
+<!-- ==================== MODAL CONTATO ==================== -->
+<div class="modal" id="contactModal">
+  <div class="modal-box">
+    <h3>➕ Novo Contato de Emergência</h3>
+    <div class="fg"><label>Nome</label><input type="text" id="cName" placeholder="Exemplo: Mariana"></div>
+    <div class="fg"><label>Telefone</label><input type="tel" id="cPhone" placeholder="(47) 99999-1111"></div>
+    <div class="fg">
+      <label>Vínculo</label>
+      <div class="chip-group" id="cRoleChips">
+        <span class="chip" onclick="selectChip(this)">Mãe</span>
+        <span class="chip" onclick="selectChip(this)">Pai</span>
+        <span class="chip" onclick="selectChip(this)">Terapeuta</span>
+        <span class="chip" onclick="selectChip(this)">Escola</span>
+        <span class="chip" onclick="selectChip(this)">Outro</span>
+      </div>
+    </div>
+    <div class="fg">
+      <label>Tipo de Alerta</label>
+      <select id="cAlert">
+        <option value="critical">🚨 Crítico (Fura Silencioso)</option>
+        <option value="standard">🔔 Padrão (Notificação Normal)</option>
+        <option value="sms">📩 SMS de Contingência</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Tempo de Resposta (escalonamento)</label>
+      <select id="cTime">
+        <option value="30">30 segundos</option>
+        <option value="45" selected>45 segundos</option>
+        <option value="60">60 segundos</option>
+      </select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-modal-secondary" onclick="closeContactForm()">Cancelar</button>
+      <button class="btn-modal-primary" onclick="saveContact()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODAL TESTE ALERTA ==================== -->
+<div class="modal" id="testAlertModal">
+  <div class="modal-box">
+    <h3>🧪 Teste de Alerta</h3>
+    <p>Enviar notificação de teste para <strong id="testContactName">-</strong>?</p>
+    <div class="modal-btns">
+      <button class="btn-modal-secondary" onclick="closeTestAlert()">Cancelar</button>
+      <button class="btn-modal-primary" onclick="confirmTestAlert()">Enviar Teste</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== NAVEGAÇÃO PRINCIPAL ==================== -->
+<nav>
+  <button class="active" onclick="goTab('child',this)"><span>👶</span>Criança</button>
+  <button onclick="goTab('teen',this)"><span>🧑</span>Teen</button>
+  <button onclick="goTab('escola',this)"><span>🏫</span>Escola</button>
+  <button onclick="goTab('parents',this)"><span>👨‍👩‍👧</span>Responsáveis</button>
+  <button onclick="goTab('reports',this)"><span>📊</span>Dados</button>
+  <button onclick="goTab('config',this)"><span>⚙️</span>Ajustes</button>
+</nav>
+
+<!-- ==================== TELA DE BLOQUEIO (TRIAL EXPIRADO) ==================== -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <video src="dinobo.mp4" muted playsinline loop autoplay poster="dinobo.jpeg"></video>
+    <h2>Seu período de teste terminou</h2>
+    <p style="color:#546E7A;font-size:.92rem">Desbloqueie o acesso completo ao Falamigo por</p>
+    <div class="lock-preco">R$ 9,90</div>
+    <p class="lock-info">Pagamento único &bull; Pix ou cartão (Asaas)<br>Acesso liberado após confirmação do pagamento e vinculado à sua conta.</p>
+    <button class="btn-lock" onclick="desbloquearAgora()">🔓 Desbloquear agora</button>
+    <p id="lockStatus"></p>
+    <div class="lock-links"><a href="#" onclick="alert('Termos de uso: acesso vitalício às funcionalidades da versão adquirida.');return false;">Termos de uso</a> &bull; <a href="#" onclick="alert('Política de privacidade: seus dados ficam seguros e nunca são vendidos.');return false;">Privacidade</a> &bull; <a href="#" onclick="alert('Suporte: suporte@hgcsoftware.com.br');return false;">Suporte</a></div>
+  </div>
+</div>
+
+<!-- ==================== MODAL CONTA (AUTH) ==================== -->
+<div class="modal" id="authModal">
+  <div class="modal-box">
+    <h3>🔐 Entrar ou criar conta</h3>
+    <p>Digite seu e-mail. Ele vincula seu desbloqueio à conta, permitindo recuperar o acesso em outro dispositivo.</p>
+    <input type="email" id="authEmail" placeholder="seu@email.com" style="width:100%">
+    <div class="modal-btns" style="margin-top:12px">
+      <button class="btn-modal-secondary" onclick="document.getElementById('authModal').classList.remove('active')">Cancelar</button>
+      <button class="btn-modal-primary" onclick="authConfirmar()">Continuar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   FALAMIGO AAC v3.1 — UNIFICADO (Criança + Teen + Escola)
+   ================================================================ */
+
+/* ---------- CONFIGURAÇÕES GLOBAIS ---------- */
+var PIN = '1234';
+var SOS_TIME = 3000;
+var sosInt = null;
+var talkInt = null;
+var currentTab = 'child';
+var selectedVoice = '';
+var currentLang = 'pt-BR';
+
+/* ---------- BANCOS DE DADOS ---------- */
+var db = {contacts:[],routines:[],history:[],telemetry:[],vocab:{}};
+var teenDb = null;
+var escolaDb = null;
+
+/* ---------- TEEN CONSTANTES ---------- */
+var TEEN_ABAS = [
+  ["comunicar","📢","FALAR"],["escrever","📝","ESCREVER"],["rotinas","🌅","ROTINAS"],
+  ["sinto","😊","SINTO"],["preciso","✋","PRECISO"],["perguntas","❓","PERGUNTAR"],
+  ["idiomas","🌍","IDIOMAS"],["treino","🎯","TREINO"],["meus-dados","⭐","MEUS"]
+];
+var TEEN_SIMNAO = [["SIM","✅","sim","feliz"],["NÃO","❌","nao","bravo"],["TALVEZ","🤔","","neutro"],["NÃO SEI","❓","","neutro"]];
+var TEEN_COMUNICAR = [
+  {cat:"Quero",emo:"🙌",itens:[["Quero comer","🍽️"],["Quero beber","🥤"],["Quero jogar","🎮"],["Quero desenhar","🎨"],["Quero ler","📖"],["Quero música","🎵"],["Quero sair","🚪"],["Quero descansar","😴"],["Quero mais","➕"],["Acabou","✋"]]},
+  {cat:"Preciso",emo:"✋",itens:[["Preciso de ajuda","🙋"],["Preciso de espaço","🚪"],["Preciso de silêncio","🤫"],["Preciso tomar remédio","💊"],["Quero ir ao banheiro","🚻"],["Preciso de um tempo","⏸️"],["Estou com dor","😣","dor"]]},
+  {cat:"Ações",emo:"🏃",itens:[["Vamos","🚶"],["Espera","✋"],["Olha","👀"],["Não quero","🚫"],["Posso ir?","🤲"],["Vamos lá","🚀"]]},
+  {cat:"Pessoas",emo:"👥",itens:[["Mãe","👩"],["Pai","👨"],["Irmão","🧑"],["Amigo","🤗"],["Cuidador","🧑‍⚕️"],["Terapeuta","🧠"],["Eu","🙋"]]},
+  {cat:"Lugares",emo:"🗺️",itens:[["Casa","🏠"],["Escola","🏫"],["Parque","🌳"],["Shopping","🏬"],["Médico","🏥"],["Quarto","🛏️"],["Cozinha","🍳"]]}
+];
+var TEEN_SINTO = [
+  {cat:"Como eu me sinto",itens:[["Estou feliz","😊","feliz"],["Estou triste","😢","triste"],["Estou bravo","😠","bravo"],["Estou ansioso","😰","ansioso"],["Estou com medo","😨","medo"],["Estou cansado","😩","cansado"],["Eu amo","❤️","amor"],["Estou com dor","😣","dor"],["Estou calmo","😌","neutro"],["Estou animado","🤩","feliz"]]},
+  {cat:"Onde dói",itens:[["Dor de cabeça","🤕","dor"],["Dor de barriga","🤢","dor"],["Dor de dente","🦷","dor"],["Dor de ouvido","👂","dor"],["Dor de garganta","😮","dor"],["Dor no braço","💪","dor"],["Dor na perna","🦵","dor"],["Dor nas costas","🔙","dor"]]}
+];
+var TEEN_PRECISO = [
+  {cat:"Meus apoios",itens:[["Preciso do meu abafador","🎧"],["Preciso do meu brinquedo","🧸"],["Preciso da minha coberta","🛏️"],["Preciso da minha rotina","📋"],["Preciso do meu remédio","💊"]]},
+  {cat:"Ambiente",itens:[["Tem muito barulho","🔊","bravo"],["Está muito claro","☀️","ansioso"],["Está muito cheio","👥","ansioso"],["Está muito quente","🥵","bravo"],["Está muito frio","🥶","triste"]]}
+];
+var TEEN_PERGUNTAS = [
+  {cat:"Perguntas",itens:[["O quê?","❓"],["Quem?","🤔"],["Onde?","🧭"],["Quando?","⏰"],["Por quê?","💭"],["Posso?","🤲"],["Acabou?","✅"],["Quem pode me ajudar?","🙋"],["Quanto custa?","💰"],["Como faz?","🛠️"]]}
+];
+var TEEN_ROTINAS_PADRAO = [
+  {cat:"🌅 Manhã",itens:[["Acordar","🌅"],["Escovar os dentes","🪥"],["Vestir roupa","👕"],["Tomar café","🥛"],["Organizar mochila","🎒"],["Sair de casa","🚪"]]},
+  {cat:"☀️ Tarde",itens:[["Almoçar","🍽️"],["Descansar","😴"],["Estudar","✏️"],["Jogar","🎮"],["Lanche","🍪"]]},
+  {cat:"🌙 Noite",itens:[["Jantar","🍲"],["Tomar banho","🛁"],["Escovar os dentes","🪥"],["Ouvir música","🎧"],["Dormir","🌙"]]},
+  {cat:"🎮 Fim de semana",itens:[["Acordar tarde","🌞"],["Brincar","🧸"],["Sair com a família","🚗"],["Jogar videogame","🎮"],["Ver filme","🎬"]]}
+];
+var TEEN_ROTINAS_TDAH = [
+  {cat:"⚡ Manhã (TDAH)",itens:[["Acordar com alarme","⏰"],["Beber água","💧"],["Escovar os dentes (2 min)","🪥"],["Vestir roupa","👕"],["Tomar remédio","💊"],["Café rápido","🥪"],["Ver rotina visual","📋"],["Sair","🚪"]]},
+  {cat:"⚡ Tarde (TDAH)",itens:[["Almoçar","🍽️"],["Timer de descanso","⏲️"],["Tarefa de 10 min","✅"],["Movimento / Brincar","🏃"],["Lanche","🍎"]]},
+  {cat:"⚡ Noite (TDAH)",itens:[["Jantar","🍲"],["Banho","🛁"],["Preparar roupa de amanhã","👕"],["Escovar os dentes","🪥"],["Tela com timer","📱"],["Dormir","🌙"]]},
+  {cat:"⚡ Foco / Tarefas",itens:[["Tempo de foco: 10 min","⏲️"],["Pausa de 5 min","☕"],["Concluí! Parabéns!","🎉"],["Preciso de ajuda","🙋"],["Recompensa!","🏆"]]}
+];
+var TEEN_IDIOMAS = [
+  {cat:"Inglês básico",lang:"en-US",itens:[["Hello","👋"],["Thank you","🙏"],["Please","🤲"],["Yes","✅"],["No","❌"],["Water","💧"],["Food","🍽️"],["Friend","🤗"],["Happy","😊"],["Tired","😩"],["Help","🙋"],["Bathroom","🚻"]]},
+  {cat:"Espanhol básico",lang:"es-ES",itens:[["Hola","👋"],["Gracias","🙏"],["Por favor","🤲"],["Sí","✅"],["No","❌"],["Agua","💧"],["Comida","🍽️"],["Amigo","🤗"],["Feliz","😊"],["Cansado","😩"],["Ayuda","🙋"],["Baño","🚻"]]}
+];
+var TEEN_TREINO_FRASES = [
+  {frase:"Bom trabalho!",emo:"👏",tipo:"incentivo"},{frase:"Continue assim!",emo:"🌟",tipo:"incentivo"},
+  {frase:"Você está indo muito bem!",emo:"💪",tipo:"incentivo"},{frase:"Isso! Fale mais alto!",emo:"📢",tipo:"incentivo"},
+  {frase:"Vamos tentar de novo?",emo:"🔄",tipo:"apoio"},{frase:"Respire fundo...",emo:"🫁",tipo:"calma"},
+  {frase:"Você consegue!",emo:"🚀",tipo:"incentivo"},{frase:"Estou ouvindo você!",emo:"👂",tipo:"apoio"},
+  {frase:"Muito bem!",emo:"🎉",tipo:"incentivo"},{frase:"Quase lá!",emo:"🏁",tipo:"apoio"}
+];
+var TEEN_TREINO_PALAVRAS = [
+  {cat:"🔤 Letras com palavras",itens:[["M de Mãe","👩","Em... M de Mãe... Mãe"],["P de Pai","👨","Pê... P de Pai... Pai"],["B de Banana","🍌","Bê... B de Banana... Banana"],["A de Amigos","🤗","Á... A de Amigos... Amigos"],["S de Sol","☀️","Ésse... S de Sol... Sol"],["L de Lua","🌙","Éle... L de Lua... Lua"],["T de Tatu","🐗","Tê... T de Tatu... Tatu"],["F de Flor","🌸","Éfe... F de Flor... Flor"],["D de Dado","🎲","Dê... D de Dado... Dado"],["G de Gato","🐱","Guê... G de Gato... Gato"],["N de Navio","🚢","Éne... N de Navio... Navio"],["V de Vaca","🐮","Vê... V de Vaca... Vaca"]]},
+  {cat:"🗣️ Palavras do dia a dia",itens:[["Celular","📱","Ce... lu... lar... Celular"],["Água","💧","Á... gua... Água"],["Escola","🏫","Es... co... la... Escola"],["Comida","🍽️","Co... mi... da... Comida"],["Brinquedo","🧸","Brin... que... do... Brinquedo"],["Obrigado","🙏","Ob... ri... ga... do... Obrigado"],["Bom dia","🌅","Bom... di... a... Bom dia"],["Boa noite","🌙","Bo... a... noi... te... Boa noite"],["Por favor","🤲","Por... fa... vor... Por favor"],["Eu quero","🙌","Eu... que... ro... Eu quero"]]}
+];
+var TEEN_CORES = [["Vermelho","🔴"],["Azul","🔵"],["Amarelo","🟡"],["Verde","🟢"],["Rosa","🌸"],["Roxo","🟣"],["Laranja","🟠"],["Preto","⚫"],["Branco","⚪"],["Marrom","🟤"]];
+var TEEN_ENTONACOES = {feliz:[1.5,1.05],triste:[0.7,0.82],bravo:[0.85,1.08],medo:[1.35,1.18],ansioso:[1.25,1.22],cansado:[0.75,0.78],amor:[1.35,0.92],dor:[0.85,0.9],neutro:[1.05,0.98]};
+var TEEN_IA_SUGESTOES = {
+  manha:["Bom dia! Vamos começar a rotina?","Não esqueça de beber água!","Já escovou os dentes?"],
+  tarde:["Hora do almoço!","Que tal uma pausa para se mexer?","Lembre-se do remédio, se precisar!"],
+  noite:["Boa noite! Preparou tudo para amanhã?","Hora de diminuir as telas","Hora de escovar os dentes e descansar"],
+  tdah:["Vamos usar o timer de 10 minutos?","Concluiu? Hora da recompensa!","Respire fundo e foque!"],
+  triste:["Quer um abraço?","Vamos respirar juntos?","Quer falar o que aconteceu?"],
+  bravo:["Vamos contar até 5?","Quer um tempo sozinho?","Respire fundo comigo!"],
+  ansioso:["Vamos usar o abafador?","Quer sua coberta?","Estou aqui com você!"],
+  dor:["Onde está doendo?","Vamos chamar o cuidador?","Quer descansar?"]
+};
+
+/* ---------- ESCOLA CONSTANTES ---------- */
+var ESCOLA_ABAS = [
+  ["comunicar","📢","COMUNICAR"],["escrever","✍️","ESCREVER"],["rotinas","🌅","ROTINAS"],
+  ["sobre","👤","SOBRE MIM"],["fichario","📋","FICHÁRIO"],["sinto","😊","SINTO"],
+  ["perguntas","❓","PERGUNTAS"],["diario","🍎","DIÁRIO"]
+];
+var ESCOLA_COMUNICAR = [
+  {cat:"Quero",emo:"🙌",itens:[["Quero comer","🍽️"],["Quero beber água","💧"],["Quero brincar","🧸"],["Quero desenhar","🎨"],["Quero ler","📖"],["Quero música","🎵"],["Quero mais","➕"],["Acabou","✋"]]},
+  {cat:"Preciso",emo:"✋",itens:[["Preciso de ajuda","🙋"],["Preciso do meu abafador","🎧"],["Preciso de espaço","🚪"],["Preciso tomar meu remédio","💊"],["Quero ir ao banheiro","🚻"],["Preciso de um tempo","⏸️"]]},
+  {cat:"Ações",emo:"🏃",itens:[["Eu quero ir","🚶"],["Posso ir?","🤲"],["Vamos brincar","🤝"],["Olha!","👀"],["Espera","✋"],["Não quero","🚫"]]},
+  {cat:"Na Escola",emo:"🏫",itens:[["Hora da aula","📚"],["Hora do lanche","🍎"],["Educação física","⚽"],["Aula de artes","🎨"],["Recreio","🛝"],["Hora de ir embora","🏠"]]},
+  {cat:"Pessoas",emo:"👥",itens:[["Professora","👩‍🏫"],["Colega","🧒"],["Amigo","🤗"],["Coordenadora","🧑‍💼"],["Família","👨‍👩‍👦"]]}
+];
+var ESCOLA_SIMNAO = [["SIM","✅","sim","feliz"],["NÃO","❌","nao","bravo"],["TALVEZ","🤔","","neutro"],["NÃO SEI","❓","","neutro"]];
+var ESCOLA_ROTINAS = [
+  {cat:"🌅 Manhã",itens:[["Acordar","🌅"],["Escovar os dentes","🪥"],["Vestir o uniforme","👕"],["Tomar café","🥛"],["Ir para a escola","🚌"]]},
+  {cat:"☀️ Tarde",itens:[["Almoçar","🍽️"],["Descansar","😴"],["Fazer a lição","✏️"],["Brincar","🧸"],["Lanche da tarde","🍪"]]},
+  {cat:"🌙 Noite",itens:[["Jantar","🍲"],["Tomar banho","🛁"],["Escovar os dentes","🪥"],["Ouvir uma história","📖"],["Dormir","🌙"]]},
+  {cat:"🏫 Rotina Escolar",itens:[["Quero ir ao banheiro","🚻"],["Quero beber água","💧"],["Quero ajuda","🙋"],["Preciso do meu abafador","🎧"],["Estou cansado","😩","cansado"],["Quero um tempo","⏸️"]]}
+];
+var ESCOLA_SINTO = [
+  {cat:"Como eu me sinto",itens:[["Estou feliz","😊","feliz"],["Estou triste","😢","triste"],["Estou bravo","😠","bravo"],["Estou ansioso","😰","ansioso"],["Estou com medo","😨","medo"],["Estou cansado","😩","cansado"],["Eu amo você","❤️","amor"],["Estou com dor","😣","dor"]]},
+  {cat:"Onde dói",itens:[["Dor de cabeça","🤕","dor"],["Dor de barriga","🤢","dor"],["Dor de dente","🦷","dor"],["Dor de ouvido","👂","dor"],["Dor de garganta","😮","dor"],["Dor no braço","💪","dor"],["Dor na perna","🦵","dor"],["Dor nas costas","🔙","dor"]]}
+];
+var ESCOLA_PERGUNTAS = [
+  {cat:"Perguntas",itens:[["O quê?","❓"],["Quem?","🤔"],["Onde?","🧭"],["Quando?","⏰"],["Por quê?","💭"],["Posso?","🤲"],["Acabou?","✅"],["Quem pode me ajudar?","🙋"]]}
+];
+var ESCOLA_FICHARIO_LETRAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+var ESCOLA_FICHARIO_NUM = ["0","1","2","3","4","5","6","7","8","9","10"];
+var ESCOLA_CORES = [["Vermelho","🔴"],["Azul","🔵"],["Amarelo","🟡"],["Verde","🟢"],["Rosa","🌸"],["Roxo","🟣"],["Laranja","🟠"],["Preto","⚫"],["Branco","⚪"],["Marrom","🟤"]];
+var ESCOLA_ENTONACOES = {feliz:[1.5,1.05],triste:[0.7,0.82],bravo:[0.85,1.08],medo:[1.35,1.18],ansioso:[1.25,1.22],cansado:[0.75,0.78],amor:[1.35,0.92],dor:[0.85,0.9],neutro:[1.05,0.98]};
+var ESCOLA_MODELOS = [
+  ["🐄 Animais da Fazenda",[["Vaca","🐄"],["Porco","🐷"],["Galinha","🐔"],["Cavalo","🐴"],["Ovelha","🐑"],["Pato","🦆"],["Cachorro","🐶"],["Gato","🐱"]]],
+  ["🎨 Aula de Artes",[["Pintar","🎨"],["Pincel","🖌️"],["Giz de cera","🖍️"],["Recortar","✂️"],["Colar","🩹"],["Papel","📄"],["Desenhar","✏️"],["Massinha","🟤"]]],
+  ["🍎 Hora do Lanche",[["Maçã","🍎"],["Banana","🍌"],["Suco","🧃"],["Sanduíche","🥪"],["Biscoito","🍪"],["Leite","🥛"],["Água","💧"],["Acabei","✅"]]]
+];
+
+/* ---------- VARIÁVEIS DE ESTADO TEEN/ESCOLA ---------- */
+var teenAba = "comunicar";
+var teenProfOK = false;
+var teenTimer = null;
+var teenTimerSeg = 0;
+
+var escolaAba = "comunicar";
+var escolaProfOK = false;
+var escolaTexto = "";
+
+/* ================================================================
+   INICIALIZAÇÃO
+   ================================================================ */
+function init() {
+  loadDB();
+  loadTeenDB();
+  loadEscolaDB();
+  loadSettings();
+  renderRoutines();
+  renderAAC();
+  renderChildCats();
+  renderContacts();
+  renderHistory();
+  renderDashboard();
+  updateContext();
+  loadVoices();
+  teenGo('comunicar');
+  escolaGo('comunicar');
+  setInterval(updateContext, 60000);
+}
+
+/* ================================================================
+   TEMAS E CONFIGURAÇÕES GLOBAIS
+   ================================================================ */
+function setTheme(themeName, el) {
+  var d = document.documentElement;
+  d.removeAttribute('data-theme');
+  if (themeName !== 'azul') d.setAttribute('data-theme', themeName);
+  var opts = document.querySelectorAll('.theme-opt');
+  for (var i = 0; i < opts.length; i++) opts[i].classList.remove('selected');
+  if (el) el.classList.add('selected');
+  localStorage.setItem('auticonnect_theme', themeName);
+}
+
+function loadSettings() {
+  var theme = localStorage.getItem('auticonnect_theme');
+  if (theme) {
+    var opts = document.querySelectorAll('.theme-opt');
+    var map = {'azul':0,'verde-menta':1,'lavanda':2,'creme':3,'escuro':4,'teen':5,'escola':6};
+    var idx = map[theme];
+    if (idx !== undefined) setTheme(theme, opts[idx]);
+  }
+  var lang = localStorage.getItem('auticonnect_lang');
+  if (lang) { currentLang = lang; document.getElementById('langSelect').value = lang; }
+  var voice = localStorage.getItem('auticonnect_voice');
+  if (voice) selectedVoice = voice;
+  var savedPin = localStorage.getItem('auticonnect_pin');
+  if (savedPin) PIN = savedPin;
+}
+
+function changeLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('auticonnect_lang', lang);
+  loadVoices();
+}
+
+function loadVoices() {
+  var select = document.getElementById('voiceSelect');
+  select.innerHTML = '<option value="">Padrão do dispositivo</option>';
+  if ('speechSynthesis' in window && window.speechSynthesis) {
+    var voices = window.speechSynthesis.getVoices();
+    var prefix = currentLang.split('-')[0];
+    for (var i = 0; i < voices.length; i++) {
+      if (voices[i].lang.indexOf(prefix) === 0) {
+        var opt = document.createElement('option');
+        opt.value = voices[i].voiceURI;
+        opt.textContent = voices[i].name;
+        if (selectedVoice === voices[i].voiceURI) opt.selected = true;
+        select.appendChild(opt);
+      }
+    }
+  }
+}
+function atualizarTodasAsVozes() {
+  loadVoices();
+  try { teenCarregarVozes(); } catch(e) {}
+  try { escolaCarregarVozes(); } catch(e) {}
+}
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = atualizarTodasAsVozes;
+}
+
+function changeVoice(voiceURI) {
+  selectedVoice = voiceURI;
+  localStorage.setItem('auticonnect_voice', voiceURI);
+}
+
+function testVoice() {
+  var text = 'Olá! Eu sou o mascote do Falamigo. Estou aqui para ajudar você a se comunicar!';
+  if (currentLang === 'en-US') text = 'Hello! I am the Falamigo mascot. I am here to help you communicate!';
+  if (currentLang === 'es-ES') text = '¡Hola! Soy la mascota de Falamigo. ¡Estoy aquí para ayudarte a comunicarte!';
+  falar(text, 'config');
+}
+
+function savePin() {
+  var newPin = document.getElementById('newPin').value.trim();
+  if (newPin.length !== 4 || !/^[0-9]{4}$/.test(newPin)) {
+    alert('O PIN deve ter exatamente 4 números.');
+    return;
+  }
+  PIN = newPin;
+  localStorage.setItem('auticonnect_pin', newPin);
+  document.getElementById('newPin').value = '';
+  alert('PIN alterado com sucesso!');
+}
+
+/* ================================================================
+   NAVEGAÇÃO PRINCIPAL
+   ================================================================ */
+function goTab(id, btn) {
+  var tabs = document.querySelectorAll('.tab');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+  document.getElementById('tab-' + id).classList.add('active');
+  var navs = document.querySelectorAll('nav button');
+  for (var i = 0; i < navs.length; i++) navs[i].classList.remove('active');
+  btn.classList.add('active');
+  currentTab = id;
+  if (id === 'reports') renderDashboard();
+  if (id === 'parents') renderContacts();
+  if (id === 'teen') teenGo(teenAba);
+  if (id === 'escola') escolaGo(escolaAba);
+  window.scrollTo(0,0);
+}
+
+/* ================================================================
+   BANCO DE DADOS PRINCIPAL (CRIANÇA)
+   ================================================================ */
+function loadDB() {
+  var s = localStorage.getItem('auticonnect_db');
+  if (s) {
+    db = JSON.parse(s);
+  } else {
+    db = {
+      contacts: [
+        {name:'Mãe',phone:'(47) 99999-1111',role:'Mãe',alert:'critical',time:'45',status:'green'},
+        {name:'Pai',phone:'(47) 99999-2222',role:'Pai',alert:'critical',time:'45',status:'green'}
+      ],
+      routines: [
+        {title:'Escovar os dentes',time:'07:00',done:false,img:''},
+        {title:'Tomar banho',time:'19:00',done:false,img:''}
+      ],
+      history: [],
+      telemetry: [],
+      vocab: {
+        quero: [
+          {text:'Quero água',icon:'💧'},{text:'Quero comer',icon:'🍽️'},{text:'Quero brincar',icon:'🧸'},
+          {text:'Quero dormir',icon:'😴'},{text:'Quero ir ao banheiro',icon:'🚻'},{text:'Quero sair',icon:'🚪'},
+          {text:'Quero ajuda',icon:'🆘'},{text:'Quero meu brinquedo',icon:'🎮'},{text:'Quero meu abafador',icon:'🎧'},{text:'Quero meu remédio',icon:'💊'}
+        ],
+        sinto: [
+          {text:'Não estou bem',icon:'😣'},{text:'Estou feliz',icon:'😊'},{text:'Estou triste',icon:'😢'},
+          {text:'Estou com dor',icon:'🤕'},{text:'Estou com medo',icon:'😨'},{text:'Estou cansado',icon:'😫'},
+          {text:'Estou com calor',icon:'🥵'},{text:'Estou com frio',icon:'🥶'}
+        ],
+        preciso: [
+          {text:'Preciso de ajuda',icon:'🆘'},{text:'Preciso ir ao banheiro',icon:'🚻'},{text:'Preciso de espaço',icon:'🛑'},
+          {text:'Preciso do meu remédio',icon:'💊'},{text:'Preciso do meu abafador',icon:'🎧'},{text:'Preciso de água',icon:'💧'}
+        ],
+        escola: [
+          {text:'Professora',icon:'👩‍🏫'},{text:'Recreio',icon:'⚽'},{text:'Caderno',icon:'📓'},
+          {text:'Banheiro',icon:'🚻'},{text:'Não entendi',icon:'❓'},{text:'Preciso de ajuda',icon:'🆘'}
+        ]
+      }
+    };
+    saveDB();
+  }
+}
+function saveDB() { localStorage.setItem('auticonnect_db', JSON.stringify(db)); }
+
+function updateContext() {
+  var h = new Date().getHours();
+  var label = '', badge = '';
+  if (h >= 6 && h < 12) { label = 'Manhã em casa — Rotinas matinais ativas'; badge = 'CASA'; }
+  else if (h >= 8 && h < 17) { label = 'Horário escolar — Vocabulário acadêmico ativo'; badge = 'ESCOLA'; }
+  else if (h >= 17 && h < 22) { label = 'Noite em casa — Rotinas de descanso'; badge = 'NOITE'; }
+  else { label = 'Madrugada — Modo silencioso ativo'; badge = 'NOITE'; }
+  document.getElementById('contextLabel').textContent = label;
+  document.getElementById('contextBadge').textContent = badge;
+  document.getElementById('aacBadge').textContent = badge;
+  renderAAC();
+}
+
+function renderAAC() {
+  var box = document.getElementById('aacBox');
+  box.innerHTML = '';
+  var h = new Date().getHours();
+  var items = [];
+  if (h >= 8 && h < 17) {
+    items = db.vocab.escola.concat(db.vocab.preciso).slice(0, 6);
+  } else {
+    items = db.vocab.quero.concat(db.vocab.sinto).slice(0, 6);
+  }
+  if (db.vocab.custom) {
+    items = items.concat(db.vocab.custom.slice(0, 3));
+  }
+  for (var i = 0; i < items.length; i++) {
+    var it = items[i];
+    var btn = document.createElement('button');
+    btn.className = 'aac-btn';
+    var span = document.createElement('span');
+    span.textContent = it.icon;
+    btn.appendChild(span);
+    btn.appendChild(document.createTextNode(it.text));
+    var cat = it.category || 'aac';
+    var txt = it.text;
+    btn.onclick = (function(text, category) {
+      return function() { falar(text, category); };
+    })(txt, cat);
+    box.appendChild(btn);
+  }
+}
+
+/* ---------- CRIANÇA — CATEGORIAS DE COMUNICAÇÃO ---------- */
+/* Cada item: [rótulo no botão, emoji, frase falada em voz alta] */
+var CHILD_CATS = [
+  {titulo:'🙌 Quero', cat:'quero', itens:[
+    ['Água','💧','Quero água'],
+    ['Banheiro','🚻','Quero ir ao banheiro'],
+    ['Ajuda','🆘','Quero ajuda'],
+    ['Dormir','😴','Quero dormir'],
+    ['Sair','🚪','Quero sair'],
+    ['Mais','➕','Quero mais'],
+    ['Brincar','🧸','Quero brincar'],
+    ['Ir para casa','🏠','Quero ir para casa']
+  ]},
+  {titulo:'🍽️ Comer e Beber', cat:'quero', itens:[
+    ['Batata frita','🍟','Quero comer batata frita'],
+    ['Pizza','🍕','Quero comer pizza'],
+    ['Hambúrguer','🍔','Quero comer hambúrguer'],
+    ['Nescau','🍫','Quero tomar Nescau'],
+    ['Suco','🧃','Quero tomar suco'],
+    ['Sorvete','🍦','Quero tomar sorvete'],
+    ['Arroz','🍚','Quero comer arroz'],
+    ['Macarrão','🍝','Quero comer macarrão'],
+    ['Feijão','🥘','Quero comer feijão'],
+    ['Carne','🥩','Quero comer carne'],
+    ['Frango','🍗','Quero comer frango']
+  ]},
+  {titulo:'✋ Preciso', cat:'preciso', itens:[
+    ['Meu abafador','🎧','Preciso do meu abafador'],
+    ['Meu pai','👨','Preciso do meu pai'],
+    ['Minha mãe','👩','Preciso da minha mãe'],
+    ['Ajuda','🆘','Preciso de ajuda'],
+    ['Meu remédio','💊','Preciso do meu remédio'],
+    ['Espaço','🛑','Preciso de espaço']
+  ]},
+  {titulo:'😊 Sinto', cat:'sinto', itens:[
+    ['Feliz','😊','Estou feliz'],
+    ['Triste','😢','Estou triste'],
+    ['Com medo','😨','Estou com medo'],
+    ['Cansado','😫','Estou cansado'],
+    ['Com dor','🤕','Estou com dor'],
+    ['Com raiva','😠','Estou com raiva'],
+    ['Papai, te amo','❤️','Papai, eu te amo'],
+    ['Mamãe, te amo','💖','Mamãe, eu te amo'],
+    ['Quero um abraço','🤗','Quero um abraço']
+  ]},
+  {titulo:'🧸 Brincar', cat:'quero', itens:[
+    ['Bicicleta','🚲','Quero andar de bicicleta'],
+    ['Carrinho','🚗','Quero brincar com carrinho'],
+    ['Boneca','🎎','Quero brincar com a boneca'],
+    ['Blocos de montar','🧱','Quero brincar com blocos de montar'],
+    ['Meu tablet','📱','Quero meu tablet'],
+    ['Televisão','📺','Quero assistir televisão'],
+    ['Bola','⚽','Quero brincar com bola'],
+    ['Ursinho','🧸','Quero meu ursinho']
+  ]}
+];
+function renderChildCats() {
+  var box = document.getElementById('childCats');
+  if (!box) return;
+  box.innerHTML = '';
+  for (var c = 0; c < CHILD_CATS.length; c++) {
+    var cat = CHILD_CATS[c];
+    var h3 = document.createElement('h3');
+    h3.textContent = cat.titulo;
+    box.appendChild(h3);
+    var grid = document.createElement('div');
+    grid.className = 'aac';
+    grid.style.marginBottom = '14px';
+    for (var i = 0; i < cat.itens.length; i++) {
+      var it = cat.itens[i];
+      var btn = document.createElement('button');
+      btn.className = 'aac-btn';
+      var span = document.createElement('span');
+      span.textContent = it[1];
+      btn.appendChild(span);
+      btn.appendChild(document.createTextNode(it[0]));
+      btn.onclick = (function(fala, categoria) {
+        return function() { falar(fala, categoria); };
+      })(it[2], cat.cat);
+      grid.appendChild(btn);
+    }
+    box.appendChild(grid);
+  }
+}
+
+function renderRoutines() {
+  var box = document.getElementById('routinesBox');
+  box.innerHTML = '';
+  if (!db.routines.length) {
+    box.innerHTML = '<div class="empty">Nenhuma rotina cadastrada</div>';
+    return;
+  }
+  var doneCount = 0;
+  for (var i = 0; i < db.routines.length; i++) {
+    var r = db.routines[i];
+    if (r.done) doneCount++;
+    var div = document.createElement('div');
+    div.className = 'card' + (r.done ? ' done' : '');
+    div.onclick = (function(idx) {
+      return function() { toggleRoutine(idx); };
+    })(i);
+    var imgbox = document.createElement('div');
+    imgbox.className = 'imgbox';
+    if (r.img) {
+      imgbox.innerHTML = '<img src="' + r.img + '">';
+    } else {
+      imgbox.textContent = '⏰';
+    }
+    div.appendChild(imgbox);
+    var h4 = document.createElement('h4');
+    h4.textContent = r.title;
+    div.appendChild(h4);
+    var sm = document.createElement('small');
+    sm.textContent = r.time;
+    div.appendChild(sm);
+    box.appendChild(div);
+  }
+  var total = db.routines.length;
+  var pct = total ? Math.round((doneCount / total) * 100) : 0;
+  document.getElementById('mRate').textContent = pct + '%';
+  document.getElementById('mDone').textContent = doneCount + ' / ' + total;
+}
+
+function toggleRoutine(i) {
+  db.routines[i].done = !db.routines[i].done;
+  saveDB();
+  renderRoutines();
+  var status = db.routines[i].done ? 'concluída' : 'reiniciada';
+  logEvent('Rotina: ' + db.routines[i].title + ' (' + status + ')', 'rotina');
+}
+
+/* ================================================================
+   MASCOTE E TTS
+   ================================================================ */
+var MASCOTES = [
+  {video:'mascoteVideo', img:'mascoteImg', box:'mascote'},
+  {video:'mascoteVideoTeen', img:'mascoteImgTeen', box:'mascoteTeen'},
+  {video:'mascoteVideoEscola', img:'mascoteImgEscola', box:'mascoteEscola'}
+];
+function playMascote() {
+  for (var i = 0; i < MASCOTES.length; i++) {
+    (function(m) {
+      var video = document.getElementById(m.video);
+      var img = document.getElementById(m.img);
+      var box = document.getElementById(m.box);
+      if (box) box.classList.add('talking');
+      if (!video) return;
+      try {
+        if (img) img.style.display = 'none';
+        video.style.display = 'block';
+        video.currentTime = 0;
+        var p = video.play();
+        if (p && p.catch) {
+          p.catch(function(e) {
+            video.style.display = 'none';
+            if (img) img.style.display = 'block';
+          });
+        }
+      } catch (err) {
+        video.style.display = 'none';
+        if (img) img.style.display = 'block';
+      }
+    })(MASCOTES[i]);
+  }
+}
+
+function stopMascote() {
+  for (var i = 0; i < MASCOTES.length; i++) {
+    var m = MASCOTES[i];
+    var video = document.getElementById(m.video);
+    var img = document.getElementById(m.img);
+    var box = document.getElementById(m.box);
+    if (video) {
+      video.pause();
+      video.style.display = 'none';
+    }
+    if (img) img.style.display = 'block';
+    if (box) box.classList.remove('talking');
+  }
+}
+
+function falar(text, category) {
+  category = category || 'aac';
+  if ('speechSynthesis' in window && window.speechSynthesis) {
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = currentLang;
+      u.rate = 0.9;
+      u.pitch = 1;
+      if (selectedVoice) {
+        var voices = window.speechSynthesis.getVoices();
+        for (var i = 0; i < voices.length; i++) {
+          if (voices[i].voiceURI === selectedVoice) {
+            u.voice = voices[i];
+            break;
+          }
+        }
+      }
+      window.speechSynthesis.speak(u);
+    } catch (err) {}
+  }
+  playMascote();
+  document.getElementById('mlabel').textContent = '"' + text + '"';
+  if(document.getElementById('mlabelTeen')) document.getElementById('mlabelTeen').textContent = '"' + text + '"';
+  if(document.getElementById('mlabelEscola')) document.getElementById('mlabelEscola').textContent = '"' + text + '"';
+  clearTimeout(talkInt);
+  talkInt = setTimeout(function() {
+    stopMascote();
+    document.getElementById('mlabel').textContent = 'Toque nos botões para eu falar!';
+    if(document.getElementById('mlabelTeen')) document.getElementById('mlabelTeen').textContent = 'Toque nos botões para eu falar!';
+    if(document.getElementById('mlabelEscola')) document.getElementById('mlabelEscola').textContent = 'Toque nos botões para eu falar!';
+  }, 3000);
+  logEvent(text, category);
+}
+
+function falarInput() {
+  var inp = document.getElementById('ttsInput');
+  if (inp.value.trim()) {
+    falar(inp.value.trim(), 'tts');
+    inp.value = '';
+  }
+}
+
+/* ================================================================
+   MODO CRISE
+   ================================================================ */
+function openCrisis() {
+  document.getElementById('crisisMode').classList.add('active');
+  logEvent('Modo Crise ativado', 'crisis');
+}
+function closeCrisis() {
+  document.getElementById('crisisMode').classList.remove('active');
+}
+function crisisSpeak(text) {
+  if ('speechSynthesis' in window && window.speechSynthesis) {
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = currentLang;
+      u.rate = 0.85;
+      u.pitch = 0.9;
+      u.volume = 1;
+      if (selectedVoice) {
+        var voices = window.speechSynthesis.getVoices();
+        for (var i = 0; i < voices.length; i++) {
+          if (voices[i].voiceURI === selectedVoice) {
+            u.voice = voices[i];
+            break;
+          }
+        }
+      }
+      window.speechSynthesis.speak(u);
+    } catch (err) {}
+  }
+  playMascote();
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+  logEvent('CRISE: ' + text, 'crisis');
+}
+
+function sosStart(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  var bar = document.getElementById('sosBar');
+  var start = Date.now();
+  sosInt = setInterval(function() {
+    var p = Math.min((Date.now() - start) / SOS_TIME * 100, 100);
+    bar.style.width = p + '%';
+    if (p >= 100) {
+      sosCancel(e);
+      openCrisis();
+    }
+  }, 50);
+}
+function sosCancel(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  clearInterval(sosInt);
+  document.getElementById('sosBar').style.width = '0%';
+}
+
+/* ================================================================
+   RESPONSÁVEIS
+   ================================================================ */
+function renderContacts() {
+  var box = document.getElementById('contactsList');
+  box.innerHTML = '';
+  if (!db.contacts.length) {
+    box.innerHTML = '<div class="empty">Nenhum contato cadastrado</div>';
+    return;
+  }
+  for (var i = 0; i < db.contacts.length; i++) {
+    var c = db.contacts[i];
+    var badgeClass = c.alert === 'critical' ? 'badge-critical' : (c.alert === 'sms' ? 'badge-sms' : 'badge-standard');
+    var alertText = c.alert === 'critical' ? 'Push Crítico' : (c.alert === 'sms' ? 'SMS de Contingência' : 'Push Padrão');
+    var div = document.createElement('div');
+    div.className = 'contact-card';
+    div.innerHTML = '<div class="contact-info">' +
+      '<strong>' + (i + 1) + '. ' + c.name + ' (' + c.role + ')</strong>' +
+      '<small>📱 ' + alertText + ' • ' + c.phone + ' • ' + c.time + 's</small>' +
+      '<span class="contact-badge ' + badgeClass + '">' + alertText + '</span>' +
+      '</div>' +
+      '<span class="contact-status status-' + c.status + '" title="' + (c.status === 'green' ? 'Pronto' : (c.status === 'yellow' ? 'Atenção' : 'Problema')) + '"></span>';
+    var btnTest = document.createElement('button');
+    btnTest.style.cssText = 'background:none;border:none;font-size:1.1rem;cursor:pointer;margin-left:6px';
+    btnTest.textContent = '🧪';
+    btnTest.onclick = (function(idx) { return function() { testAlert(idx); }; })(i);
+    div.appendChild(btnTest);
+    var btnDel = document.createElement('button');
+    btnDel.style.cssText = 'background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--danger)';
+    btnDel.textContent = '🗑️';
+    btnDel.onclick = (function(idx) { return function() { deleteContact(idx); }; })(i);
+    div.appendChild(btnDel);
+    box.appendChild(div);
+  }
+}
+
+function openContactForm() { document.getElementById('contactModal').classList.add('active'); }
+function closeContactForm() { document.getElementById('contactModal').classList.remove('active'); }
+function selectChip(el) {
+  var chips = document.querySelectorAll('#cRoleChips .chip');
+  for (var i = 0; i < chips.length; i++) chips[i].classList.remove('selected');
+  el.classList.add('selected');
+}
+function saveContact() {
+  var name = document.getElementById('cName').value.trim();
+  var phone = document.getElementById('cPhone').value.trim();
+  var alertType = document.getElementById('cAlert').value;
+  var time = document.getElementById('cTime').value;
+  var roleEl = document.querySelector('#cRoleChips .chip.selected');
+  var role = roleEl ? roleEl.textContent : 'Outro';
+  if (!name || !phone) { alert('Preencha o nome e o telefone.'); return; }
+  db.contacts.push({name: name, phone: phone, role: role, alert: alertType, time: time, status: 'green'});
+  saveDB();
+  renderContacts();
+  closeContactForm();
+  document.getElementById('cName').value = '';
+  document.getElementById('cPhone').value = '';
+}
+function deleteContact(i) {
+  if (confirm('Remover este contato?')) {
+    db.contacts.splice(i, 1);
+    saveDB();
+    renderContacts();
+  }
+}
+var testIndex = null;
+function testAlert(i) {
+  testIndex = i;
+  document.getElementById('testContactName').textContent = db.contacts[i].name;
+  document.getElementById('testAlertModal').classList.add('active');
+}
+function closeTestAlert() { document.getElementById('testAlertModal').classList.remove('active'); }
+function confirmTestAlert() {
+  var c = db.contacts[testIndex];
+  alert('🧪 Alerta de teste enviado para ' + c.name + '!\n\nTipo: ' + (c.alert === 'critical' ? 'Crítico (fura silencioso)' : 'Padrão') + '\nTelefone: ' + c.phone);
+  closeTestAlert();
+}
+
+var aiImageData = '';
+function aiProcessPhoto(input) {
+  var preview = document.getElementById('aiPreview');
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      aiImageData = e.target.result;
+      preview.innerHTML = '<img src="' + e.target.result + '" style="filter:contrast(1.2) brightness(1.1)">';
+      setTimeout(function() {
+        var guess = prompt('Confirme a palavra para o pictograma:', '');
+        if (guess) document.getElementById('aiWord').value = guess;
+      }, 500);
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+function aiSavePictogram() {
+  var word = document.getElementById('aiWord').value.trim();
+  var cat = document.getElementById('aiCategory').value;
+  if (!word) { alert('Digite a palavra ou frase.'); return; }
+  if (!db.vocab.custom) db.vocab.custom = [];
+  db.vocab.custom.push({text: word, icon: '🆕', category: cat, img: aiImageData});
+  saveDB();
+  renderAAC();
+  document.getElementById('aiPreview').innerHTML = '<span>A prévia da foto aparecerá aqui</span>';
+  document.getElementById('aiWord').value = '';
+  document.getElementById('aiPhoto').value = '';
+  alert('✨ Pictograma "' + word + '" criado e salvo com sucesso!');
+}
+
+function exportData() {
+  var dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(db));
+  var a = document.createElement('a');
+  a.setAttribute('href', dataStr);
+  a.setAttribute('download', 'falamigo_backup.json');
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+function importData(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var data = JSON.parse(e.target.result);
+      db = data;
+      saveDB();
+      init();
+      alert('✅ Dados importados com sucesso!');
+    } catch (err) {
+      alert('❌ Arquivo inválido. Verifique o formato.');
+    }
+  };
+  reader.readAsText(file);
+}
+function generateQR() {
+  var qr = document.getElementById('qrArea');
+  var data = btoa(JSON.stringify(db).slice(0, 200));
+  qr.innerHTML = '<div style="background:white;padding:10px;border-radius:10px;display:inline-block">' +
+    '<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(data) + '" style="width:150px;height:150px">' +
+    '<div style="font-size:.75rem;color:var(--text2);margin-top:6px">Escaneie para sincronizar</div></div>';
+}
+function previewImg(input) {
+  var box = document.getElementById('previewBox');
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) { box.innerHTML = '<img src="' + e.target.result + '">'; };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+function addRotina(e) {
+  e.preventDefault();
+  var t = document.getElementById('rtitle').value.trim();
+  var tm = document.getElementById('rtime').value;
+  var imgBox = document.getElementById('previewBox');
+  var img = imgBox.querySelector('img');
+  db.routines.push({title: t, time: tm, done: false, img: img ? img.src : ''});
+  saveDB();
+  renderRoutines();
+  document.getElementById('rtitle').value = '';
+  document.getElementById('rtime').value = '';
+  document.getElementById('previewBox').innerHTML = '<span>Prévia da foto</span>';
+  return false;
+}
+
+/* ================================================================
+   RELATÓRIOS
+   ================================================================ */
+function logEvent(text, category) {
+  var entry = {text: text, category: category || 'geral', time: new Date().toISOString(), timestamp: Date.now()};
+  db.history.unshift(entry);
+  db.telemetry.push(entry);
+  if (db.history.length > 50) db.history.pop();
+  saveDB();
+  if (currentTab === 'reports') renderDashboard();
+}
+
+function renderDashboard() {
+  var today = new Date().toDateString();
+  var todayEvents = [];
+  for (var i = 0; i < db.telemetry.length; i++) {
+    if (new Date(db.telemetry[i].time).toDateString() === today) todayEvents.push(db.telemetry[i]);
+  }
+  document.getElementById('dashToday').textContent = todayEvents.length;
+  var ownInit = 0;
+  for (var i = 0; i < db.telemetry.length; i++) {
+    if (db.telemetry[i].category !== 'rotina' && db.telemetry[i].category !== 'tts') ownInit++;
+  }
+  var total = db.telemetry.length || 1;
+  document.getElementById('dashInit').textContent = Math.round((ownInit / total) * 100) + '%';
+  var cats = {};
+  for (var i = 0; i < db.telemetry.length; i++) {
+    var cat = db.telemetry[i].category;
+    cats[cat] = (cats[cat] || 0) + 1;
+  }
+  var topCat = '-';
+  var max = 0;
+  for (var k in cats) {
+    if (cats[k] > max) { max = cats[k]; topCat = k; }
+  }
+  var catNames = {aac:'Comunicação',crisis:'Emergência',rotina:'Rotina',tts:'Texto',quero:'Quero',sinto:'Sinto',preciso:'Preciso',escola:'Escola',config:'Configuração'};
+  document.getElementById('dashTopCat').textContent = catNames[topCat] || topCat;
+  renderCategoryChart(cats);
+  renderHistory();
+}
+
+function renderCategoryChart(cats) {
+  var box = document.getElementById('categoryChart');
+  var total = 0;
+  for (var k in cats) total += cats[k];
+  if (!total) total = 1;
+  var catNames = {aac:'Comunicação',crisis:'Emergência',rotina:'Rotina',tts:'Texto',quero:'Quero',sinto:'Sinto',preciso:'Preciso',escola:'Escola',config:'Configuração'};
+  var colors = {aac:'#4DB6AC',crisis:'#EF9A9A',rotina:'#A5D6A7',tts:'#FFE082',quero:'#80CBC4',sinto:'#CE93D8',preciso:'#90CAF9',escola:'#81D4FA',config:'#B0BEC5'};
+  var html = '';
+  for (var k in cats) {
+    var pct = Math.round((cats[k] / total) * 100);
+    html += '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:3px"><span>' + (catNames[k] || k) + '</span><span>' + pct + '%</span></div>' +
+      '<div style="background:var(--bg);border-radius:8px;height:22px;overflow:hidden"><div style="width:' + pct + '%;background:' + (colors[k] || '#4DB6AC') + ';height:100%;border-radius:8px;transition:width .5s"></div></div></div>';
+  }
+  box.innerHTML = html || '<div class="empty">Dados sendo coletados...</div>';
+}
+
+function renderHistory() {
+  var box = document.getElementById('histBox');
+  if (!db.history.length) {
+    box.innerHTML = '<div class="empty">Nenhum registro ainda</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < Math.min(db.history.length, 20); i++) {
+    var h = db.history[i];
+    var d = new Date(h.time);
+    var timeStr = d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
+    var catBadge = h.category === 'crisis' ? '<span style="color:#EF9A9A;font-weight:700">[CRISE]</span> ' : '';
+    html += '<li><div><strong>' + catBadge + h.text + '</strong><small>' + timeStr + ' • ' + (h.category || 'geral') + '</small></div></li>';
+  }
+  box.innerHTML = html;
+}
+
+function exportReport() {
+  var report = {
+    gerado: new Date().toISOString(),
+    resumo: {totalComunicacoes: db.telemetry.length, categorias: {}},
+    historico: db.history.slice(0, 50)
+  };
+  for (var i = 0; i < db.telemetry.length; i++) {
+    var cat = db.telemetry[i].category;
+    report.resumo.categorias[cat] = (report.resumo.categorias[cat] || 0) + 1;
+  }
+  var dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(report, null, 2));
+  var a = document.createElement('a');
+  a.setAttribute('href', dataStr);
+  a.setAttribute('download', 'relatorio_terapeuta_' + new Date().toISOString().slice(0, 10) + '.json');
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  alert('📄 Relatório exportado! Envie para o terapeuta.');
+}
+
+/* ================================================================
+   PIN
+   ================================================================ */
+function pinMove(el, n) {
+  if (el.value.length >= 1) {
+    var next = el.parentElement.children[n];
+    if (next) next.focus();
+  }
+}
+function pinCheck(el) {
+  var inputs = el.parentElement.querySelectorAll('input');
+  var code = '';
+  for (var i = 0; i < inputs.length; i++) code += inputs[i].value;
+  if (code === PIN) {
+    document.getElementById('pinScreen').style.display = 'none';
+    document.getElementById('parentsBox').style.display = 'block';
+    renderContacts();
+  } else {
+    document.getElementById('pinErr').style.display = 'block';
+    for (var i = 0; i < inputs.length; i++) inputs[i].value = '';
+    inputs[0].focus();
+  }
+}
+function limparTudo() {
+  if (confirm('⚠️ Apagar TODOS os dados? Esta ação não pode ser desfeita.')) {
+    localStorage.removeItem('auticonnect_db');
+    localStorage.removeItem('falamigoTeenV2');
+    localStorage.removeItem('falamigoEscolarV1');
+    location.reload();
+  }
+}
+
+/* ================================================================
+   TEEN — BANCO DE DADOS
+   ================================================================ */
+function teenPadrao() {
+  return {cfg:{nome:"",idade:12,personagem:"neutro",responsaveis:[],idioma:"pt-BR",vozGenero:"F",vozNome:"",imgTipo:"desenho",fs:20,img:52,contraste:false,perfil:"padrao"},log:[],atv:[],pranchas:[],diario:[],meusDados:[],treino:{}};
+}
+function loadTeenDB() {
+  try {
+    var s = localStorage.getItem('falamigoTeenV2');
+    teenDb = s ? JSON.parse(s) : teenPadrao();
+  } catch(e) { teenDb = teenPadrao(); }
+  if (!teenDb.cfg) teenDb = teenPadrao();
+  if (!teenDb.meusDados) teenDb.meusDados = [];
+}
+function saveTeenDB() { try { localStorage.setItem('falamigoTeenV2', JSON.stringify(teenDb)); } catch(e) {} }
+function teenRegistrarUso(palavra) {
+  teenDb.log.push({p:palavra,t:new Date().getTime(),aba:teenAba});
+  if (teenDb.log.length > 5000) teenDb.log.splice(0, teenDb.log.length - 5000);
+  saveTeenDB();
+}
+
+/* ---------- TEEN — VOZ ---------- */
+var teenVozes = [];
+function teenCarregarVozes() { try { teenVozes = speechSynthesis.getVoices(); } catch(e) { teenVozes = []; } }
+if (typeof speechSynthesis !== "undefined") { teenCarregarVozes(); }
+
+function teenPegarVoz() {
+  if (!teenVozes.length) teenCarregarVozes();
+  var lang = (teenDb.cfg.idioma || "pt-BR");
+  var curta = lang.split("-")[0];
+  var i, v;
+  if (teenDb.cfg.vozNome) { for (i = 0; i < teenVozes.length; i++) { if (teenVozes[i].name === teenDb.cfg.vozNome) return teenVozes[i]; } }
+  var mesmaLang = [];
+  for (i = 0; i < teenVozes.length; i++) { v = teenVozes[i]; if (v.lang && v.lang.toLowerCase().indexOf(curta) === 0) mesmaLang.push(v); }
+  if (!mesmaLang.length) mesmaLang = teenVozes;
+  var fem = ["maria","female","luciana","fernanda","camila","heloisa","google portugu","google"];
+  var masc = ["marcos","male","daniel","thiago","ricardo","felipe","miguel"];
+  var lista = (teenDb.cfg.vozGenero === "M") ? masc : fem;
+  for (var p = 0; p < lista.length; p++) {
+    for (i = 0; i < mesmaLang.length; i++) {
+      var n = mesmaLang[i].name.toLowerCase();
+      if (teenDb.cfg.vozGenero === "M" && n.indexOf("female") >= 0) continue;
+      if (n.indexOf(lista[p]) >= 0) return mesmaLang[i];
+    }
+  }
+  return mesmaLang[0] || null;
+}
+
+function teenFalar(txt, emo) {
+  if (typeof speechSynthesis === "undefined") return;
+  try {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(txt);
+    u.lang = teenDb.cfg.idioma || "pt-BR";
+    var v = teenPegarVoz(); if (v) u.voice = v;
+    var p = TEEN_ENTONACOES[emo || "neutro"] || TEEN_ENTONACOES.neutro;
+    u.pitch = p[0]; u.rate = p[1]; u.volume = 1;
+    speechSynthesis.speak(u);
+  } catch(e) {}
+  playMascote();
+  document.getElementById('mlabelTeen').textContent = '"' + txt + '"';
+  clearTimeout(talkInt);
+  talkInt = setTimeout(function() {
+    stopMascote();
+    document.getElementById('mlabelTeen').textContent = 'Toque nos botões para eu falar!';
+  }, 3000);
+  teenRegistrarUso(txt);
+}
+
+/* ---------- TEEN — UTILITÁRIOS ---------- */
+function esc(s) { return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+function dataBR(t) { var d = new Date(t); var z = function(n) { return (n < 10 ? "0" : "") + n; }; return z(d.getDate()) + "/" + z(d.getMonth() + 1) + " " + z(d.getHours()) + ":" + z(d.getMinutes()); }
+
+function teenGridItens(itens) {
+  var h = '<div class="grid">';
+  for (var i = 0; i < itens.length; i++) {
+    var t = itens[i][0], e = itens[i][1], emo = itens[i][2] || "neutro", cls = itens[i][3] || "";
+    h += '<div class="cartao ' + cls + '" onclick="teenClique(' + teenReg(t, emo) + ')"><span class="emo">' + e + '</span>' + esc(t) + '</div>';
+  }
+  return h + '</div>';
+}
+function teenReg(t, e) { teenRegArr.push([t, e || "neutro"]); return teenRegArr.length - 1; }
+var teenRegArr = [];
+function teenClique(i) { var r = teenRegArr[i]; teenFalar(r[0], r[1]); }
+
+/* ---------- TEEN — RENDERIZAÇÃO ---------- */
+function teenGo(aba) {
+  teenAba = aba;
+  teenRegArr = [];
+  var c = document.getElementById('teenContent');
+  var btns = document.getElementById('teenSubnav').getElementsByTagName('button');
+  for (var i = 0; i < TEEN_ABAS.length; i++) {
+    btns[i].className = (TEEN_ABAS[i][0] === aba) ? "active" : "";
+  }
+  if (aba === "comunicar") c.innerHTML = teenRenderComunicar();
+  else if (aba === "escrever") c.innerHTML = teenRenderEscrever();
+  else if (aba === "rotinas") { c.innerHTML = teenRenderRotinas(); teenTimerSeg = 0; }
+  else if (aba === "sinto") c.innerHTML = teenRenderSinto();
+  else if (aba === "preciso") c.innerHTML = teenRenderPreciso();
+  else if (aba === "perguntas") c.innerHTML = teenRenderPerguntas();
+  else if (aba === "idiomas") c.innerHTML = teenRenderIdiomas();
+  else if (aba === "treino") c.innerHTML = teenRenderTreino();
+  else if (aba === "meus-dados") c.innerHTML = teenRenderMeusDados();
+  window.scrollTo(0, 0);
+}
+
+function teenIaSaudacao() {
+  var h = new Date().getHours();
+  var periodo = h < 12 ? "manha" : (h < 18 ? "tarde" : "noite");
+  var s = TEEN_IA_SUGESTOES[periodo];
+  var perfil = (teenDb.cfg.perfil === "tdah") ? TEEN_IA_SUGESTOES.tdah : [];
+  var todas = s.concat(perfil);
+  var msg = todas[Math.floor(Math.random() * todas.length)] || "Olá! Estou aqui para te ajudar.";
+  return {msg: msg, periodo: periodo};
+}
+function teenRenderIA() {
+  var ia = teenIaSaudacao();
+  var h = '<div class="ia-box">';
+  h += '<div class="ia-cab"><span class="ia-avatar">🤖</span><span class="ia-nome">FalaBot — Assistente</span></div>';
+  h += '<div class="ia-msg" id="teenIaMsg">' + esc(ia.msg) + '</div>';
+  h += '<div style="margin-top:8px">';
+  h += '<button class="ia-btn" onclick="teenIaDica(&quot;manha&quot;)">🌅 Manhã</button>';
+  h += '<button class="ia-btn" onclick="teenIaDica(&quot;tarde&quot;)">☀️ Tarde</button>';
+  h += '<button class="ia-btn" onclick="teenIaDica(&quot;noite&quot;)">🌙 Noite</button>';
+  if (teenDb.cfg.perfil === "tdah") h += '<button class="ia-btn" onclick="teenIaDica(&quot;tdah&quot;)">⚡ Foco</button>';
+  h += '<button class="ia-btn" onclick="teenIaDica(&quot;triste&quot;)">😢 Triste</button>';
+  h += '<button class="ia-btn" onclick="teenIaDica(&quot;bravo&quot;)">😠 Bravo</button>';
+  h += '<button class="ia-btn" onclick="teenIaDica(&quot;ansioso&quot;)">😰 Ansioso</button>';
+  h += '<button class="ia-btn" onclick="teenIaDica(&quot;dor&quot;)">😣 Dor</button>';
+  h += '</div></div>';
+  return h;
+}
+function teenIaDica(tipo) {
+  var s = TEEN_IA_SUGESTOES[tipo];
+  if (s) {
+    var msg = s[Math.floor(Math.random() * s.length)];
+    var el = document.getElementById("teenIaMsg");
+    if (el) el.innerHTML = esc(msg);
+    teenFalar(msg, "neutro");
+  }
+}
+
+function teenRenderComunicar() {
+  var h = "";
+  h += teenRenderIA();
+  h += '<h2 class="cat-titulo">⚡ Acesso Rápido</h2>';
+  h += '<div class="grid2">';
+  h += '<div class="cartao-destaque" onclick="teenGo(&quot;sinto&quot;)"><span class="emo">😊</span>Sinto</div>';
+  h += '<div class="cartao-destaque" onclick="teenGo(&quot;preciso&quot;)"><span class="emo">✋</span>Preciso</div>';
+  h += '<div class="cartao-destaque" onclick="teenGo(&quot;perguntas&quot;)"><span class="emo">❓</span>Perguntas</div>';
+  h += '<div class="cartao-destaque" onclick="teenGo(&quot;escrever&quot;)"><span class="emo">📝</span>Escrever</div>';
+  h += '</div>';
+  h += '<h2 class="cat-titulo">✅❌ Responder</h2><div class="grid" style="grid-template-columns:1fr 1fr">';
+  for (var s = 0; s < TEEN_SIMNAO.length; s++) {
+    h += '<div class="cartao grande ' + TEEN_SIMNAO[s][2] + '" onclick="teenClique(' + teenReg(TEEN_SIMNAO[s][0], TEEN_SIMNAO[s][3]) + ')"><span class="emo">' + TEEN_SIMNAO[s][1] + '</span>' + TEEN_SIMNAO[s][0] + '</div>';
+  }
+  h += '</div>';
+  for (var c = 0; c < TEEN_COMUNICAR.length; c++) {
+    h += '<h2 class="cat-titulo">' + TEEN_COMUNICAR[c].emo + ' ' + TEEN_COMUNICAR[c].cat + '</h2>' + teenGridItens(TEEN_COMUNICAR[c].itens);
+  }
+  for (var p = 0; p < teenDb.pranchas.length; p++) {
+    var b = teenDb.pranchas[p];
+    h += '<h2 class="cat-titulo">⭐ ' + esc(b.titulo) + '</h2>';
+    var its = []; for (var j = 0; j < b.itens.length; j++) its.push([b.itens[j].t, b.itens[j].e]);
+    h += its.length ? teenGridItens(its) : '<div class="dica" style="padding:0 14px">Sem itens ainda.</div>';
+  }
+  return h;
+}
+
+function teenRenderEscrever() {
+  var h = '<div class="secao"><h3>📝 Escrever e Falar</h3>';
+  h += '<div class="dica">Escreva o que quiser e o Falamigo fala em voz alta!</div>';
+  h += '<textarea id="teenTxtFalar" placeholder="Digite aqui o que você quer dizer..." style="min-height:100px"></textarea>';
+  h += '<div class="linha">';
+  h += '<button class="btn" style="flex:1" onclick="teenFalarTexto()">🔊 FALAR EM VOZ ALTA</button>';
+  h += '<button class="btn btn2" onclick="document.getElementById(&quot;teenTxtFalar&quot;).value=&quot;&quot;">🗑️ Limpar</button>';
+  h += '</div>';
+  h += '<div class="ia-box" style="margin-top:14px"><div class="ia-cab"><span class="ia-avatar">🤖</span><span class="ia-nome">FalaBot — Sugestões</span></div>';
+  var sugs = ["Quero sair de casa","Não estou me sentindo bem","Preciso de ajuda","Estou com fome","Quero jogar","Estou cansado","Preciso de silêncio","Onde está minha mãe?"];
+  for (var i = 0; i < sugs.length; i++) {
+    h += '<button class="ia-btn" onclick="teenInserirTexto(' + JSON.stringify(sugs[i]).replace(/"/g, '&quot;') + ')">' + esc(sugs[i]) + '</button>';
+  }
+  h += '</div></div>';
+  return h;
+}
+function teenFalarTexto() {
+  var t = document.getElementById("teenTxtFalar").value.replace(/^\s+|\s+$/g, "");
+  if (!t) { alert("Escreva algo primeiro! ✍️"); return; }
+  teenFalar(t, "neutro");
+}
+function teenInserirTexto(t) {
+  var el = document.getElementById("teenTxtFalar");
+  el.value = (el.value ? el.value + " " : "") + t;
+}
+
+function teenRenderSinto() {
+  var h = "";
+  for (var c = 0; c < TEEN_SINTO.length; c++) {
+    h += '<h2 class="cat-titulo">' + (c === 0 ? "😊 " : "😣 ") + TEEN_SINTO[c].cat + '</h2>' + teenGridItens(TEEN_SINTO[c].itens);
+  }
+  return h;
+}
+function teenRenderPreciso() {
+  var h = "";
+  for (var c = 0; c < TEEN_PRECISO.length; c++) {
+    h += '<h2 class="cat-titulo">' + TEEN_PRECISO[c].cat + '</h2>' + teenGridItens(TEEN_PRECISO[c].itens);
+  }
+  return h;
+}
+function teenRenderPerguntas() {
+  var h = "";
+  for (var c = 0; c < TEEN_PERGUNTAS.length; c++) {
+    h += '<h2 class="cat-titulo">❓ ' + TEEN_PERGUNTAS[c].cat + '</h2>' + teenGridItens(TEEN_PERGUNTAS[c].itens);
+  }
+  h += '<h2 class="cat-titulo">✅❌ Responder</h2><div class="grid" style="grid-template-columns:1fr 1fr">';
+  for (var s = 0; s < TEEN_SIMNAO.length; s++) {
+    h += '<div class="cartao grande ' + TEEN_SIMNAO[s][2] + '" onclick="teenClique(' + teenReg(TEEN_SIMNAO[s][0], TEEN_SIMNAO[s][3]) + ')"><span class="emo">' + TEEN_SIMNAO[s][1] + '</span>' + TEEN_SIMNAO[s][0] + '</div>';
+  }
+  return h + '</div>';
+}
+
+function teenRenderRotinas() {
+  var h = "";
+  var rot = (teenDb.cfg.perfil === "tdah") ? TEEN_ROTINAS_TDAH : TEEN_ROTINAS_PADRAO;
+  for (var c = 0; c < rot.length; c++) {
+    h += '<h2 class="cat-titulo">' + rot[c].cat + '</h2>' + teenGridItens(rot[c].itens);
+  }
+  if (teenDb.cfg.perfil === "tdah") {
+    h += '<div class="secao"><h3>⏲️ Timer de Foco (TDAH)</h3>';
+    h += '<div class="dica">Use o timer para focar em uma tarefa por 10 minutos.</div>';
+    h += '<div class="timer-box"><div class="timer-num" id="teenTimerNum">10:00</div><div class="timer-label">minutos</div></div>';
+    h += '<div class="linha">';
+    h += '<button class="btn btn-verde" onclick="teenIniciarTimer(10)">▶️ 10 min</button>';
+    h += '<button class="btn btn-verde" onclick="teenIniciarTimer(5)">▶️ 5 min</button>';
+    h += '<button class="btn btn-perigo" onclick="teenPararTimer()">⏹️ Parar</button>';
+    h += '</div></div>';
+  }
+  return h;
+}
+function teenIniciarTimer(min) {
+  teenPararTimer();
+  teenTimerSeg = min * 60;
+  teenAtualizarTimer();
+  teenTimer = setInterval(function() {
+    teenTimerSeg--;
+    teenAtualizarTimer();
+    if (teenTimerSeg <= 0) {
+      teenPararTimer();
+      teenFalar("Tempo encerrado! Bom trabalho!", "feliz");
+      alert("⏲️ Tempo encerrado! Bom trabalho! 🎉");
+    }
+  }, 1000);
+}
+function teenPararTimer() { if (teenTimer) { clearInterval(teenTimer); teenTimer = null; } }
+function teenAtualizarTimer() {
+  var m = Math.floor(teenTimerSeg / 60), s = teenTimerSeg % 60;
+  var el = document.getElementById("teenTimerNum");
+  if (el) el.innerHTML = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+function teenRenderIdiomas() {
+  var h = '<div class="secao"><h3>🌍 Aprender outro idioma</h3>';
+  h += '<div class="dica">Toque nas palavras para ouvir na língua escolhida.</div></div>';
+  for (var c = 0; c < TEEN_IDIOMAS.length; c++) {
+    var idi = TEEN_IDIOMAS[c];
+    h += '<h2 class="cat-titulo">' + idi.cat + '</h2><div class="grid">';
+    for (var i = 0; i < idi.itens.length; i++) {
+      var t = idi.itens[i][0], e = idi.itens[i][1];
+      (function(T, E, L) { h += '<div class="cartao" onclick="teenFalarIdioma(' + JSON.stringify(T).replace(/"/g, '&quot;') + ',' + JSON.stringify(L).replace(/"/g, '&quot;') + ')"><span class="emo">' + E + '</span>' + esc(T) + '</div>'; })(t, e, idi.lang);
+    }
+    h += '</div>';
+  }
+  return h;
+}
+function teenFalarIdioma(txt, lang) {
+  if (typeof speechSynthesis === "undefined") return;
+  try {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(txt);
+    u.lang = lang;
+    var vozes = speechSynthesis.getVoices();
+    var escolhida = null;
+    for (var i = 0; i < vozes.length; i++) {
+      if (vozes[i].lang && vozes[i].lang.toLowerCase().indexOf(lang.split("-")[0]) === 0) { escolhida = vozes[i]; break; }
+    }
+    if (escolhida) u.voice = escolhida;
+    u.pitch = 1.1; u.rate = 0.95; u.volume = 1;
+    speechSynthesis.speak(u);
+  } catch(e) {}
+  playMascote();
+  teenRegistrarUso("Idioma [" + lang + "]: " + txt);
+}
+
+function teenRenderTreino() {
+  var h = '<div class="secao"><h3>🎯 Treino de Fala</h3>';
+  h += '<div class="dica">🔊 Toque em uma palavra para <b>ouvir devagar</b>. Depois, <b>repita em voz alta</b>!</div>';
+  h += '<div class="incentivo" id="teenTreinoStatus">👆 Toque em uma palavra abaixo para começar!</div>';
+  for (var c = 0; c < TEEN_TREINO_PALAVRAS.length; c++) {
+    h += '<h3 style="margin:12px 0 4px;color:var(--primary)">' + TEEN_TREINO_PALAVRAS[c].cat + '</h3>';
+    for (var i = 0; i < TEEN_TREINO_PALAVRAS[c].itens.length; i++) {
+      var it = TEEN_TREINO_PALAVRAS[c].itens[i];
+      h += '<div class="frase-treino" id="teenTp_' + c + '_' + i + '" onclick="teenFalarPausado(' + c + ',' + i + ')"><span class="emoji">' + it[1] + '</span>' + esc(it[0]) + ' <span style="float:right;font-size:22px">🔊</span></div>';
+    }
+  }
+  h += '<h3 style="margin:16px 0 4px;color:var(--primary)">💜 Frases de incentivo</h3>';
+  for (var j = 0; j < TEEN_TREINO_FRASES.length; j++) {
+    var f = TEEN_TREINO_FRASES[j];
+    h += '<div class="frase-treino" onclick="teenFalarTreino(' + j + ')"><span class="emoji">' + f.emo + '</span>' + esc(f.frase) + '</div>';
+  }
+  h += '<div class="linha" style="margin-top:14px">';
+  h += '<button class="btn btn-verde" onclick="teenFalar(&quot;Bom trabalho! Continue assim!&quot;,&quot;feliz&quot;)">👏 Bom trabalho!</button>';
+  h += '<button class="btn btn-azul" onclick="teenFalar(&quot;Você está indo muito bem!&quot;,&quot;feliz&quot;)">🌟 Continue assim!</button>';
+  h += '<button class="btn" onclick="teenFalar(&quot;Vamos tentar de novo? Juntos conseguimos!&quot;,&quot;neutro&quot;)">🔄 Tentar de novo</button>';
+  h += '</div></div>';
+  return h;
+}
+function teenFalarPausado(c, i) {
+  var it = TEEN_TREINO_PALAVRAS[c].itens[i];
+  if (typeof speechSynthesis !== "undefined") {
+    try {
+      speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(it[2]);
+      u.lang = teenDb.cfg.idioma || "pt-BR";
+      var v = teenPegarVoz(); if (v) u.voice = v;
+      u.pitch = 1.0; u.rate = 0.55; u.volume = 1;
+      speechSynthesis.speak(u);
+    } catch(e) {}
+  }
+  var els = document.querySelectorAll("#teenContent .frase-treino");
+  for (var k = 0; k < els.length; k++) els[k].style.borderColor = "var(--border)";
+  var ativo = document.getElementById("teenTp_" + c + "_" + i);
+  if (ativo) ativo.style.borderColor = "#22c55e";
+  var st = document.getElementById("teenTreinoStatus");
+  if (st) st.innerHTML = "👂 " + it[1] + " <b>" + esc(it[0]) + "</b> — ouça e repita em voz alta!";
+  teenRegistrarUso("Treino fala: " + it[0]);
+}
+function teenFalarTreino(i) {
+  var f = TEEN_TREINO_FRASES[i];
+  teenFalar(f.frase, "neutro");
+  var st = document.getElementById("teenTreinoStatus");
+  if (st) st.innerHTML = f.emo + " " + f.frase;
+  teenRegistrarUso("Treino: " + f.frase);
+}
+
+function teenRenderMeusDados() {
+  var h = '<div class="secao"><h3>⭐ Meus Dados e Palavras</h3>';
+  h += '<div class="dica">Adicione palavras, nomes de pessoas, lugares e frases que você usa no dia a dia.</div>';
+  h += '<div class="linha">';
+  h += '<input id="teenMdEmo" placeholder="Emoji" maxlength="4" style="width:110px;flex:none">';
+  h += '<input id="teenMdTxt" placeholder="Palavra ou frase" maxlength="40" style="flex:1">';
+  h += '</div>';
+  h += '<div class="linha" style="margin-top:6px">';
+  h += '<select id="teenMdCat" style="flex:1"><option value="geral">Geral</option><option value="pessoas">Pessoas</option><option value="lugares">Lugares</option><option value="comidas">Comidas</option><option value="brincar">Brincar/Jogar</option></select>';
+  h += '<button class="btn" onclick="teenAddMeuDado()">＋ Adicionar</button>';
+  h += '</div>';
+  h += '<div id="teenListaMeusDados">' + teenListaMeusDados() + '</div></div>';
+  return h;
+}
+function teenAddMeuDado() {
+  var t = document.getElementById("teenMdTxt").value.replace(/^\s+|\s+$/g, "");
+  var e = document.getElementById("teenMdEmo").value.replace(/^\s+|\s+$/g, "") || "⭐";
+  var c = document.getElementById("teenMdCat").value;
+  if (!t) { alert("Digite a palavra."); return; }
+  teenDb.meusDados.push({t: t, e: e, c: c}); saveTeenDB();
+  document.getElementById("teenMdTxt").value = ""; document.getElementById("teenMdEmo").value = "";
+  document.getElementById("teenListaMeusDados").innerHTML = teenListaMeusDados();
+}
+function teenDelMeuDado(i) { teenDb.meusDados.splice(i, 1); saveTeenDB(); document.getElementById("teenListaMeusDados").innerHTML = teenListaMeusDados(); }
+function teenListaMeusDados() {
+  if (!teenDb.meusDados.length) return '<div class="dica">Nenhuma palavra adicionada ainda.</div>';
+  var cats = {geral: "📦 Geral", pessoas: "👥 Pessoas", lugares: "🗺️ Lugares", comidas: "🍽️ Comidas", brincar: "🎮 Brincar/Jogar"};
+  var h = "";
+  var porCat = {};
+  for (var i = 0; i < teenDb.meusDados.length; i++) {
+    var d = teenDb.meusDados[i];
+    if (!porCat[d.c]) porCat[d.c] = [];
+    porCat[d.c].push({t: d.t, e: d.e, i: i});
+  }
+  for (var k in porCat) {
+    h += '<h3 style="margin:10px 0 4px;color:var(--primary);font-size:1rem">' + (cats[k] || k) + '</h3><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;padding:4px 0">';
+    for (var j = 0; j < porCat[k].length; j++) {
+      var it = porCat[k][j];
+      h += '<div class="cartao" onclick="teenClique(' + teenReg(it.t) + ')"><span class="emo">' + it.e + '</span>' + esc(it.t) + '</div>';
+    }
+    h += '</div>';
+  }
+  for (var i = 0; i < teenDb.meusDados.length; i++) {
+    h += '<div class="item-lista"><span>' + teenDb.meusDados[i].e + '</span><span class="txt">' + esc(teenDb.meusDados[i].t) + '</span><button class="x" onclick="teenDelMeuDado(' + i + ')">✖</button></div>';
+  }
+  return h;
+}
+
+/* ================================================================
+   ESCOLA — BANCO DE DADOS
+   ================================================================ */
+function escolaPadrao() {
+  return {cfg:{nome:"",personagem:"menino",professores:[],idioma:"pt-BR",vozGenero:"F",vozNome:"",imgTipo:"desenho",fs:20,img:52,contraste:false},log:[],atv:[],pranchas:[],diario:[]};
+}
+function loadEscolaDB() {
+  try {
+    var s = localStorage.getItem('falamigoEscolarV1');
+    escolaDb = s ? JSON.parse(s) : escolaPadrao();
+  } catch(e) { escolaDb = escolaPadrao(); }
+  if (!escolaDb.cfg) escolaDb = escolaPadrao();
+}
+function saveEscolaDB() { try { localStorage.setItem('falamigoEscolarV1', JSON.stringify(escolaDb)); } catch(e) {} }
+function escolaRegistrarUso(palavra) {
+  escolaDb.log.push({p:palavra,t:new Date().getTime(),aba:escolaAba});
+  if (escolaDb.log.length > 5000) escolaDb.log.splice(0, escolaDb.log.length - 5000);
+  saveEscolaDB();
+}
+
+/* ---------- ESCOLA — VOZ ---------- */
+var escolaVozes = [];
+function escolaCarregarVozes() { try { escolaVozes = speechSynthesis.getVoices(); } catch(e) { escolaVozes = []; } }
+if (typeof speechSynthesis !== "undefined") { escolaCarregarVozes(); }
+
+function escolaPegarVoz() {
+  if (!escolaVozes.length) escolaCarregarVozes();
+  var lang = (escolaDb.cfg.idioma || "pt-BR");
+  var curta = lang.split("-")[0];
+  var i, v;
+  if (escolaDb.cfg.vozNome) { for (i = 0; i < escolaVozes.length; i++) { if (escolaVozes[i].name === escolaDb.cfg.vozNome) return escolaVozes[i]; } }
+  var mesmaLang = [];
+  for (i = 0; i < escolaVozes.length; i++) { v = escolaVozes[i]; if (v.lang && v.lang.toLowerCase().indexOf(curta) === 0) mesmaLang.push(v); }
+  if (!mesmaLang.length) mesmaLang = escolaVozes;
+  var fem = ["maria","female","luciana","fernanda","camila","heloisa","google portugu","google"];
+  var masc = ["marcos","male","daniel","thiago","ricardo","felipe","miguel"];
+  var lista = (escolaDb.cfg.vozGenero === "M") ? masc : fem;
+  for (var p = 0; p < lista.length; p++) {
+    for (i = 0; i < mesmaLang.length; i++) {
+      var n = mesmaLang[i].name.toLowerCase();
+      if (escolaDb.cfg.vozGenero === "M" && n.indexOf("female") >= 0) continue;
+      if (n.indexOf(lista[p]) >= 0) return mesmaLang[i];
+    }
+  }
+  return mesmaLang[0] || null;
+}
+
+function escolaFalar(txt, emo) {
+  if (typeof speechSynthesis === "undefined") return;
+  try {
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(txt);
+    u.lang = escolaDb.cfg.idioma || "pt-BR";
+    var v = escolaPegarVoz(); if (v) u.voice = v;
+    var p = ESCOLA_ENTONACOES[emo || "neutro"] || ESCOLA_ENTONACOES.neutro;
+    u.pitch = p[0]; u.rate = p[1]; u.volume = 1;
+    speechSynthesis.speak(u);
+  } catch(e) {}
+  playMascote();
+  document.getElementById('mlabelEscola').textContent = '"' + txt + '"';
+  clearTimeout(talkInt);
+  talkInt = setTimeout(function() {
+    stopMascote();
+    document.getElementById('mlabelEscola').textContent = 'Toque nos botões para eu falar!';
+  }, 3000);
+  escolaRegistrarUso(txt);
+}
+
+/* ---------- ESCOLA — UTILITÁRIOS ---------- */
+function escolaGridItens(itens) {
+  var h = '<div class="grid">';
+  for (var i = 0; i < itens.length; i++) {
+    var t = itens[i][0], e = itens[i][1], emo = itens[i][2] || "neutro", cls = itens[i][3] || "";
+    h += '<div class="cartao ' + cls + '" onclick="escolaClique(' + escolaReg(t, emo) + ')"><span class="emo">' + e + '</span>' + esc(t) + '</div>';
+  }
+  return h + '</div>';
+}
+function escolaReg(t, e) { escolaRegArr.push([t, e || "neutro"]); return escolaRegArr.length - 1; }
+var escolaRegArr = [];
+function escolaClique(i) { var r = escolaRegArr[i]; escolaFalar(r[0], r[1]); }
+
+/* ---------- ESCOLA — RENDERIZAÇÃO ---------- */
+function escolaGo(aba) {
+  if (aba === "diario" && !escolaProfOK) {
+    if (!confirm("🍎 Área da professora.\nAqui ficam pranchas, diário e relatórios.\n\nVocê é a professora/terapeuta?")) return;
+    escolaProfOK = true;
+  }
+  escolaAba = aba;
+  escolaRegArr = [];
+  var c = document.getElementById('escolaContent');
+  var btns = document.getElementById('escolaSubnav').getElementsByTagName('button');
+  for (var i = 0; i < ESCOLA_ABAS.length; i++) {
+    btns[i].className = (ESCOLA_ABAS[i][0] === aba) ? "active" : "";
+  }
+  if (aba === "comunicar") c.innerHTML = escolaRenderComunicar();
+  else if (aba === "escrever") { c.innerHTML = escolaRenderEscrever(); escolaTexto = ""; }
+  else if (aba === "rotinas") c.innerHTML = escolaRenderRotinas();
+  else if (aba === "sobre") c.innerHTML = escolaRenderSobre();
+  else if (aba === "fichario") c.innerHTML = escolaRenderFichario();
+  else if (aba === "sinto") c.innerHTML = escolaRenderSinto();
+  else if (aba === "perguntas") c.innerHTML = escolaRenderPerguntas();
+  else if (aba === "diario") c.innerHTML = escolaRenderDiario();
+  window.scrollTo(0, 0);
+}
+
+function escolaRenderComunicar() {
+  var h = "";
+  if (escolaDb.atv.length) {
+    h += '<h2 class="cat-titulo">⭐ Atividade do Dia</h2>';
+    var it = []; for (var i = 0; i < escolaDb.atv.length; i++) it.push([escolaDb.atv[i].t, escolaDb.atv[i].e]);
+    h += escolaGridItens(it);
+  }
+  h += '<h2 class="cat-titulo">✅❌ Prancha Sim e Não</h2><div class="grid" style="grid-template-columns:1fr 1fr">';
+  for (var s = 0; s < ESCOLA_SIMNAO.length; s++) {
+    h += '<div class="cartao grande ' + ESCOLA_SIMNAO[s][2] + '" onclick="escolaClique(' + escolaReg(ESCOLA_SIMNAO[s][0], ESCOLA_SIMNAO[s][3]) + ')"><span class="emo">' + ESCOLA_SIMNAO[s][1] + '</span>' + ESCOLA_SIMNAO[s][0] + '</div>';
+  }
+  h += '</div>';
+  for (var c = 0; c < ESCOLA_COMUNICAR.length; c++) {
+    h += '<h2 class="cat-titulo">' + ESCOLA_COMUNICAR[c].emo + ' ' + ESCOLA_COMUNICAR[c].cat + '</h2>' + escolaGridItens(ESCOLA_COMUNICAR[c].itens);
+  }
+  for (var p = 0; p < escolaDb.pranchas.length; p++) {
+    var b = escolaDb.pranchas[p];
+    h += '<h2 class="cat-titulo">📚 ' + esc(b.titulo) + ' <span style="font-size:12px;color:var(--text2)">(professora)</span></h2>';
+    var its = []; for (var j = 0; j < b.itens.length; j++) its.push([b.itens[j].t, b.itens[j].e]);
+    h += its.length ? escolaGridItens(its) : '<div class="dica" style="padding:0 14px">Sem itens ainda — adicione na aba DIÁRIO.</div>';
+  }
+  return h;
+}
+
+function escolaRenderEscrever() {
+  var h = '<div class="secao"><h3>✍️ Escrever uma mensagem</h3>';
+  h += '<div class="dica">Toque nas letras para formar uma frase. Depois toque em "FALAR".</div>';
+  h += '<div id="escolaAreaEscrita" style="background:#0d0d1a;border:2px solid var(--border);border-radius:12px;padding:14px;min-height:60px;font-size:1.2rem;font-weight:bold;word-break:break-word;margin-bottom:10px;color:var(--text)"></div>';
+  h += '<div class="linha" style="margin-bottom:8px">';
+  h += '<button class="btn btn2" onclick="escolaLimparEscrita()">🗑️ Limpar</button>';
+  h += '<button class="btn btn2" onclick="escolaApagarLetra()">⌫ Apagar</button>';
+  h += '<button class="btn" style="flex:1" onclick="escolaFalarEscrita()">🔊 FALAR</button>';
+  h += '</div>';
+  h += '<h3 style="margin-top:14px">🔤 Alfabeto</h3>';
+  h += '<div class="grid" style="grid-template-columns:repeat(7,1fr);gap:6px;padding:6px 0">';
+  for (var i = 0; i < ESCOLA_FICHARIO_LETRAS.length; i++) {
+    var L = ESCOLA_FICHARIO_LETRAS[i];
+    h += '<div class="cartao" style="padding:10px 2px;font-size:1.1rem" onclick="escolaDigitarLetra(&quot;' + L + '&quot;)"><span class="emo" style="font-size:1.5rem">' + L + '</span></div>';
+  }
+  h += '</div>';
+  h += '<h3 style="margin-top:10px">🔢 Números</h3>';
+  h += '<div class="grid" style="grid-template-columns:repeat(5,1fr);gap:6px;padding:6px 0">';
+  for (var i = 0; i < ESCOLA_FICHARIO_NUM.length; i++) {
+    var N = ESCOLA_FICHARIO_NUM[i];
+    h += '<div class="cartao" style="padding:10px 2px;font-size:1.1rem" onclick="escolaDigitarLetra(&quot;' + N + '&quot;)"><span class="emo" style="font-size:1.5rem">' + N + '</span></div>';
+  }
+  h += '</div>';
+  h += '<h3 style="margin-top:10px">✨ Símbolos</h3>';
+  var simbolos = [" ", ".", ",", "!", "?", "@", "#", "$", "%", "&", "*", "(", ")", "-", "+", "=", "/", ":", ";"];
+  h += '<div class="grid" style="grid-template-columns:repeat(7,1fr);gap:6px;padding:6px 0">';
+  for (var i = 0; i < simbolos.length; i++) {
+    var S = simbolos[i];
+    var vis = S === " " ? "␣" : S;
+    h += '<div class="cartao" style="padding:10px 2px;font-size:1.1rem" onclick="escolaDigitarLetra(' + JSON.stringify(S).replace(/"/g, '&quot;') + ')"><span class="emo" style="font-size:1.5rem">' + vis + '</span></div>';
+  }
+  h += '</div>';
+  h += '<h3 style="margin-top:10px">🎨 Cores (palavras prontas)</h3>';
+  for (var i = 0; i < ESCOLA_CORES.length; i++) {
+    h += '<div class="cartao" style="display:inline-block;margin:4px" onclick="escolaDigitarPalavra(&quot;' + ESCOLA_CORES[i][0] + '&quot;)"><span class="emo">' + ESCOLA_CORES[i][1] + '</span>' + ESCOLA_CORES[i][0] + '</div>';
+  }
+  h += '</div>';
+  return h;
+}
+function escolaDigitarLetra(letra) {
+  escolaTexto += letra;
+  escolaAtualizarArea();
+  escolaFalar(letra, "neutro");
+}
+function escolaDigitarPalavra(palavra) {
+  escolaTexto += (escolaTexto.length > 0 && !escolaTexto.match(/ $/) ? " " : "") + palavra;
+  escolaAtualizarArea();
+  escolaFalar(palavra, "neutro");
+}
+function escolaApagarLetra() {
+  escolaTexto = escolaTexto.slice(0, -1);
+  escolaAtualizarArea();
+}
+function escolaLimparEscrita() {
+  escolaTexto = "";
+  escolaAtualizarArea();
+}
+function escolaAtualizarArea() {
+  var el = document.getElementById("escolaAreaEscrita");
+  if (el) el.innerHTML = escolaTexto.length ? esc(escolaTexto) : '<span style="color:var(--text2)">Toque nas letras para escrever...</span>';
+}
+function escolaFalarEscrita() {
+  if (!escolaTexto.trim()) { alert("Escreva algo primeiro! ✍️"); return; }
+  escolaFalar(escolaTexto.trim(), "neutro");
+}
+
+function escolaRenderRotinas() {
+  var h = "";
+  for (var c = 0; c < ESCOLA_ROTINAS.length; c++) {
+    h += '<h2 class="cat-titulo">' + ESCOLA_ROTINAS[c].cat + '</h2>' + escolaGridItens(ESCOLA_ROTINAS[c].itens);
+  }
+  return h;
+}
+
+function escolaRenderSobre() {
+  var c = escolaDb.cfg;
+  var h = '<div class="grid" style="grid-template-columns:1fr 1fr">';
+  h += '<div class="cartao grande" onclick="escolaClique(' + escolaReg("Meu nome é " + c.nome) + ')"><span class="emo">' + ((c.personagem === "menina") ? "👧" : "👦") + '</span>Meu nome é ' + esc(c.nome) + '</div>';
+  h += '<div class="cartao grande" onclick="escolaClique(' + escolaReg((c.personagem === "menina") ? "Eu sou uma menina" : "Eu sou um menino") + ')"><span class="emo">🧒</span>' + ((c.personagem === "menina") ? "Eu sou uma menina" : "Eu sou um menino") + '</div>';
+  for (var i = 0; i < c.professores.length; i++) {
+    h += '<div class="cartao grande" onclick="escolaClique(' + escolaReg("Minha professora é a " + c.professores[i]) + ')"><span class="emo">👩‍🏫</span>Minha professora é a ' + esc(c.professores[i]) + '</div>';
+  }
+  h += '<div class="cartao grande" onclick="escolaClique(' + escolaReg("Eu estudo na escola") + ')"><span class="emo">🏫</span>Eu estudo na escola</div>';
+  h += '<div class="cartao grande" onclick="escolaClique(' + escolaReg("Eu uso o Falamigo para falar") + ')"><span class="emo">📢</span>Eu uso o Falamigo para falar</div>';
+  h += '<div class="cartao grande" onclick="escolaClique(' + escolaReg("Preciso do meu abafador", "ansioso") + ')"><span class="emo">🎧</span>Preciso do meu abafador</div>';
+  h += '</div>';
+  if (!c.professores.length) h += '<div class="dica" style="padding:12px">Cadastre a professora na aba ⚙️ AJUSTES.</div>';
+  return h;
+}
+
+function escolaRenderFichario() {
+  var i, h = '<h2 class="cat-titulo">🔤 Alfabeto</h2><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(72px,1fr))">';
+  for (i = 0; i < ESCOLA_FICHARIO_LETRAS.length; i++) {
+    (function(L) { h += '<div class="cartao" onclick="escolaClique(' + escolaReg(L) + ')"><span class="emo" style="font-size:1.5rem">' + L + '</span></div>'; })(ESCOLA_FICHARIO_LETRAS[i]);
+  }
+  h += '</div><h2 class="cat-titulo">🔢 Números</h2><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(72px,1fr))">';
+  for (i = 0; i < ESCOLA_FICHARIO_NUM.length; i++) {
+    (function(N) { h += '<div class="cartao" onclick="escolaClique(' + escolaReg(N) + ')"><span class="emo" style="font-size:1.5rem">' + N + '</span></div>'; })(ESCOLA_FICHARIO_NUM[i]);
+  }
+  h += '</div><h2 class="cat-titulo">🎨 Cores</h2>' + escolaGridItens(ESCOLA_CORES);
+  return h;
+}
+
+function escolaRenderSinto() {
+  var h = "";
+  for (var c = 0; c < ESCOLA_SINTO.length; c++) {
+    h += '<h2 class="cat-titulo">' + (c === 0 ? "😊 " : "😣 ") + ESCOLA_SINTO[c].cat + '</h2>' + escolaGridItens(ESCOLA_SINTO[c].itens);
+  }
+  return h;
+}
+
+function escolaRenderPerguntas() {
+  var h = "";
+  for (var c = 0; c < ESCOLA_PERGUNTAS.length; c++) {
+    h += '<h2 class="cat-titulo">❓ ' + ESCOLA_PERGUNTAS[c].cat + '</h2>' + escolaGridItens(ESCOLA_PERGUNTAS[c].itens);
+  }
+  h += '<h2 class="cat-titulo">✅❌ Responder</h2><div class="grid" style="grid-template-columns:1fr 1fr">';
+  for (var s = 0; s < ESCOLA_SIMNAO.length; s++) {
+    h += '<div class="cartao grande ' + ESCOLA_SIMNAO[s][2] + '" onclick="escolaClique(' + escolaReg(ESCOLA_SIMNAO[s][0], ESCOLA_SIMNAO[s][3]) + ')"><span class="emo">' + ESCOLA_SIMNAO[s][1] + '</span>' + ESCOLA_SIMNAO[s][0] + '</div>';
+  }
+  return h + '</div>';
+}
+
+function escolaRenderDiario() {
+  var h = "";
+  h += '<div class="secao"><h3>🗓️ Prancha da Atividade do Dia</h3>';
+  h += '<div class="dica">Monte em menos de 1 minuto: 3 ou 4 palavras da atividade de hoje. Aparece no topo da aba 📢 COMUNICAR.</div>';
+  h += '<div class="linha"><input id="escolaAtvEmo" placeholder="Emoji (ex: 🔴)" maxlength="4" style="width:110px;flex:none"><input id="escolaAtvTxt" placeholder="Palavra (ex: Vermelho)" maxlength="30" style="flex:1"></div>';
+  h += '<button class="btn" onclick="escolaAddAtividade()">＋ Adicionar</button>';
+  h += '<div id="escolaListaAtv">' + escolaListaAtividade() + '</div></div>';
+
+  h += '<div class="secao"><h3>📚 Pranchas Temáticas Temporárias</h3>';
+  h += '<div class="dica">Crie pranchas rápidas do assunto do dia. Modelos prontos:</div>';
+  h += '<div class="linha">';
+  h += '<button class="btn btn2" onclick="escolaModeloPrancha(0)">🐄 Animais da Fazenda</button>';
+  h += '<button class="btn btn2" onclick="escolaModeloPrancha(1)">🎨 Aula de Artes</button>';
+  h += '<button class="btn btn2" onclick="escolaModeloPrancha(2)">🍎 Hora do Lanche</button>';
+  h += '</div>';
+  h += '<div class="linha" style="margin-top:8px"><input id="escolaNpTitulo" placeholder="Nome da nova prancha" maxlength="30" style="flex:1"><button class="btn" onclick="escolaCriarPrancha()">Criar</button></div>';
+  h += '<div id="escolaListaPranchas">' + escolaListaPranchas() + '</div></div>';
+
+  h += '<div class="secao"><h3>📔 Diário de Bordo</h3>';
+  h += '<label>A criança usou o app de forma independente?</label>';
+  h += '<select id="escolaDIndep"><option value="Independente">Independente</option><option value="Ajuda verbal">Precisou de ajuda verbal</option><option value="Ajuda física">Precisou de ajuda física</option></select>';
+  h += '<label>O app travou ou ficou lento?</label>';
+  h += '<select id="escolaDTravou"><option value="Não">Não</option><option value="Sim">Sim</option></select>';
+  h += '<label>Faltou alguma palavra essencial que ela tentou falar?</label>';
+  h += '<input id="escolaDFaltou" placeholder="Ex: quero recreio" maxlength="60">';
+  h += '<label>Observações do dia</label>';
+  h += '<textarea id="escolaDObs" placeholder="Como foi o uso hoje?"></textarea>';
+  h += '<button class="btn" onclick="escolaSalvarDiario()">💾 Salvar registro do dia</button>';
+  h += '<div id="escolaListaDiario">' + escolaListaDiario() + '</div></div>';
+
+  h += '<div class="secao"><h3>📊 Relatórios de Evolução e Uso</h3>';
+  h += '<div class="dica">Métricas de engajamento para relatórios pedagógicos e PEI.</div>';
+  h += escolaRelatorioUso();
+  h += '<button class="btn btn2" onclick="escolaExportarRelatorio()">📄 Gerar relatório em texto (copiar)</button>';
+  h += '<textarea id="escolaTxtRelatorio" class="hidden" style="min-height:160px"></textarea>';
+  h += '</div>';
+
+  h += '<div class="secao"><h3>☁️ Sincronização</h3>';
+  h += '<div class="dica">💾 <b>Modo Escola:</b> o Falamigo funciona 100% offline. Todos os dados de progresso ficam salvos neste aparelho e serão enviados à nuvem quando houver conexão estável.</div>';
+  h += '<div id="escolaSyncStatus">' + escolaSyncStatus() + '</div>';
+  h += '<button class="btn btn2" onclick="escolaTentarSync()">🔄 Sincronizar agora</button>';
+  h += '</div>';
+  return h;
+}
+
+function escolaListaAtividade() {
+  if (!escolaDb.atv.length) return '<div class="dica">Nenhuma palavra ainda.</div>';
+  var h = "";
+  for (var i = 0; i < escolaDb.atv.length; i++) {
+    h += '<div class="item-lista"><span>' + escolaDb.atv[i].e + '</span><span class="txt">' + esc(escolaDb.atv[i].t) + '</span><button class="x" onclick="escolaDelAtividade(' + i + ')">✖</button></div>';
+  }
+  return h;
+}
+function escolaAddAtividade() {
+  var t = document.getElementById("escolaAtvTxt").value.replace(/^\s+|\s+$/g, "");
+  var e = document.getElementById("escolaAtvEmo").value.replace(/^\s+|\s+$/g, "") || "🔹";
+  if (!t) { alert("Digite a palavra da atividade."); return; }
+  escolaDb.atv.push({t: t, e: e}); saveEscolaDB();
+  document.getElementById("escolaAtvTxt").value = ""; document.getElementById("escolaAtvEmo").value = "";
+  document.getElementById("escolaListaAtv").innerHTML = escolaListaAtividade();
+}
+function escolaDelAtividade(i) { escolaDb.atv.splice(i, 1); saveEscolaDB(); document.getElementById("escolaListaAtv").innerHTML = escolaListaAtividade(); }
+
+function escolaModeloPrancha(i) {
+  var m = ESCOLA_MODELOS[i]; var its = [];
+  for (var j = 0; j < m[1].length; j++) its.push({t: m[1][j][0], e: m[1][j][1]});
+  escolaDb.pranchas.push({titulo: m[0].replace(/^[^ ]+ /, ""), itens: its});
+  saveEscolaDB(); document.getElementById("escolaListaPranchas").innerHTML = escolaListaPranchas();
+}
+function escolaCriarPrancha() {
+  var t = document.getElementById("escolaNpTitulo").value.replace(/^\s+|\s+$/g, "");
+  if (!t) { alert("Digite o nome da prancha."); return; }
+  escolaDb.pranchas.push({titulo: t, itens: []}); saveEscolaDB();
+  document.getElementById("escolaNpTitulo").value = "";
+  document.getElementById("escolaListaPranchas").innerHTML = escolaListaPranchas();
+}
+function escolaDelPrancha(i) { if (confirm("Apagar a prancha \"" + escolaDb.pranchas[i].titulo + "\"?")) { escolaDb.pranchas.splice(i, 1); saveEscolaDB(); document.getElementById("escolaListaPranchas").innerHTML = escolaListaPranchas(); } }
+function escolaAddItemPrancha(i) {
+  var t = document.getElementById("escolaPi_txt_" + i).value.replace(/^\s+|\s+$/g, "");
+  var e = document.getElementById("escolaPi_emo_" + i).value.replace(/^\s+|\s+$/g, "") || "🔹";
+  if (!t) { alert("Digite a palavra."); return; }
+  escolaDb.pranchas[i].itens.push({t: t, e: e}); saveEscolaDB();
+  document.getElementById("escolaListaPranchas").innerHTML = escolaListaPranchas();
+}
+function escolaDelItemPrancha(b, i) { escolaDb.pranchas[b].itens.splice(i, 1); saveEscolaDB(); document.getElementById("escolaListaPranchas").innerHTML = escolaListaPranchas(); }
+function escolaListaPranchas() {
+  if (!escolaDb.pranchas.length) return '<div class="dica">Nenhuma prancha criada. Use um modelo ou crie a sua!</div>';
+  var h = "";
+  for (var i = 0; i < escolaDb.pranchas.length; i++) {
+    var b = escolaDb.pranchas[i];
+    h += '<div class="item-lista" style="background:#262650"><span class="txt"><b>📚 ' + esc(b.titulo) + '</b> (' + b.itens.length + ' itens)</span><button class="x" onclick="escolaDelPrancha(' + i + ')">🗑️</button></div>';
+    for (var j = 0; j < b.itens.length; j++) {
+      h += '<div class="item-lista" style="margin-left:16px"><span>' + b.itens[j].e + '</span><span class="txt">' + esc(b.itens[j].t) + '</span><button class="x" onclick="escolaDelItemPrancha(' + i + ',' + j + ')">✖</button></div>';
+    }
+    h += '<div class="linha" style="margin-left:16px"><input id="escolaPi_emo_' + i + '" placeholder="Emoji" maxlength="4" style="width:90px;flex:none"><input id="escolaPi_txt_' + i + '" placeholder="Palavra" maxlength="30" style="flex:1"><button class="btn btn2" onclick="escolaAddItemPrancha(' + i + ')">＋</button></div>';
+  }
+  return h;
+}
+
+function escolaSalvarDiario() {
+  var indep = document.getElementById("escolaDIndep").value;
+  var travou = document.getElementById("escolaDTravou").value;
+  var faltou = document.getElementById("escolaDFaltou").value.replace(/^\s+|\s+$/g, "");
+  var obs = document.getElementById("escolaDObs").value.replace(/^\s+|\s+$/g, "");
+  escolaDb.diario.unshift({data: new Date().getTime(), indep: indep, travou: travou, faltou: faltou, obs: obs});
+  if (escolaDb.diario.length > 60) escolaDb.diario.length = 60;
+  saveEscolaDB();
+  document.getElementById("escolaDFaltou").value = ""; document.getElementById("escolaDObs").value = "";
+  document.getElementById("escolaListaDiario").innerHTML = escolaListaDiario();
+  alert("Registro salvo! 💾");
+}
+function escolaListaDiario() {
+  if (!escolaDb.diario.length) return '<div class="dica">Nenhum registro ainda.</div>';
+  var h = "";
+  for (var i = 0; i < Math.min(escolaDb.diario.length, 7); i++) {
+    var d = escolaDb.diario[i];
+    h += '<div class="item-lista" style="display:block"><b>📅 ' + dataBR(d.data) + '</b> — ' + esc(d.indep) + (d.travou === "Sim" ? " | ⚠️ travou" : "") + (d.faltou ? " | Faltou: " + esc(d.faltou) : "") + (d.obs ? "<br><span class='dica'>" + esc(d.obs) + "</span>" : "") + '</div>';
+  }
+  return h;
+}
+
+function escolaRelatorioUso() {
+  var agora = new Date().getTime();
+  var diaMs = 86400000, semanaMs = 7 * diaMs;
+  var hoje = 0, semana = 0, conta = {}, i, l;
+  for (i = 0; i < escolaDb.log.length; i++) {
+    l = escolaDb.log[i];
+    if (agora - l.t < diaMs) hoje++;
+    if (agora - l.t < semanaMs) { semana++; var p = l.p; conta[p] = (conta[p] || 0) + 1; }
+  }
+  var arr = [];
+  for (var k in conta) arr.push([k, conta[k]]);
+  arr.sort(function(a, b) { return b[1] - a[1]; });
+  var h = '<div class="kpi-linha">';
+  h += '<div class="kpi"><div class="n">' + hoje + '</div><div class="l">toques hoje</div></div>';
+  h += '<div class="kpi"><div class="n">' + semana + '</div><div class="l">toques na semana</div></div>';
+  h += '<div class="kpi"><div class="n">' + arr.length + '</div><div class="l">palavras diferentes</div></div>';
+  h += '<div class="kpi"><div class="n">' + escolaDb.diario.length + '</div><div class="l">registros no diário</div></div></div>';
+  h += '<h3 style="margin-top:10px">🏆 Palavras mais usadas na semana</h3>';
+  if (!arr.length) h += '<div class="dica">Ainda sem uso registrado. As métricas aparecem conforme a criança usa o app.</div>';
+  var max = arr.length ? arr[0][1] : 1;
+  for (i = 0; i < Math.min(arr.length, 10); i++) {
+    var w = Math.round(arr[i][1] / max * 100);
+    h += '<div class="barra-linha"><span class="palavra">' + esc(arr[i][0]) + '</span><span class="barra-fundo"><span class="barra-fill" style="width:' + w + '%;display:block"></span></span><span class="barra-num">' + arr[i][1] + '</span></div>';
+  }
+  return h;
+}
+function escolaExportarRelatorio() {
+  var agora = new Date().getTime(), semanaMs = 7 * 86400000;
+  var conta = {}, semana = 0, i, l;
+  for (i = 0; i < escolaDb.log.length; i++) { l = escolaDb.log[i]; if (agora - l.t < semanaMs) { semana++; conta[l.p] = (conta[l.p] || 0) + 1; } }
+  var arr = []; for (var k in conta) arr.push([k, conta[k]]);
+  arr.sort(function(a, b) { return b[1] - a[1]; });
+  var txt = "=== FALAMIGO ESCOLAR — RELATÓRIO DE USO ===\n";
+  txt += "Aluno(a): " + escolaDb.cfg.nome + " | Personagem: " + escolaDb.cfg.personagem + "\n";
+  txt += "Professora(s): " + escolaDb.cfg.professores.join(", ") + "\n";
+  txt += "Data: " + dataBR(agora) + "\n\n";
+  txt += "COMUNICAÇÕES NA SEMANA: " + semana + "\n";
+  txt += "PALAVRAS MAIS USADAS:\n";
+  for (i = 0; i < Math.min(arr.length, 15); i++) txt += "  - " + arr[i][0] + ": " + arr[i][1] + "x\n";
+  txt += "\nDIÁRIO DE BORDO (últimos registros):\n";
+  for (i = 0; i < Math.min(escolaDb.diario.length, 7); i++) {
+    var d = escolaDb.diario[i];
+    txt += "  [" + dataBR(d.data) + "] " + d.indep + " | Travou: " + d.travou + (d.faltou ? " | Faltou: " + d.faltou : "") + (d.obs ? " | Obs: " + d.obs : "") + "\n";
+  }
+  txt += "\n(Relatório gerado offline — para PEI e documentação pedagógica)";
+  var ta = document.getElementById("escolaTxtRelatorio");
+  ta.value = txt; ta.className = ""; ta.focus(); ta.select();
+}
+function escolaSyncStatus() {
+  return navigator.onLine
+    ? '<div class="dica" style="color:#7dff9b">☁️ Conexão detectada. Os dados locais estão prontos para sincronizar.</div>'
+    : '<div class="dica">📴 Sem internet no momento. Tudo continua salvo neste aparelho.</div>';
+}
+function escolaTentarSync() {
+  if (navigator.onLine) { alert("☁️ Dados sincronizados com sucesso!\n(" + escolaDb.log.length + " registros de uso enviados)"); }
+  else { alert("📴 Sem internet. Não se preocupe: os dados ficam salvos no aparelho e sincronizam quando a conexão voltar."); }
+}
+
+/* ================================================================
+   INICIALIZAÇÃO FINAL
+   ================================================================ */
+init();
+
+/* ================================================================
+   DINOBO v4.0 — Interatividade + Trial (validação no servidor)
+   ================================================================ */
+var DINOBO_SERVER_URL = ''; /* Ex.: 'https://api.seudominio.com' — ver backend/README */
+var TRIAL_DIAS = 7;
+var PRECO_TXT = 'R$ 9,90';
+var trialDados = null;
+var authToken = localStorage.getItem('falamigo_token') || '';
+
+var DINOBO_ACOES = {
+  entrar:      'Olá! Eu sou o Dinobo! Vamos descobrir juntos tudo o que você pode fazer no Falamigo?',
+  teen:        'Modo Teen! Aqui você pode escrever, treinar fala e usar o timer de foco!',
+  escola:      'Modo Escola! Vamos aprender e se comunicar na sala de aula!',
+  responsaveis:'Área dos responsáveis. Bem-vindos! Aqui dá para gerenciar tudo.',
+  dados:       'Aqui está todo o progresso. Os gráficos mostram a evolução!',
+  ajustes:     'Nas configurações você pode ajustar cores, idioma e a voz!',
+  tarefa_ok:   'Parabéns! Você conseguiu concluir! 🎉',
+  crise:       'Estou aqui com você. Vamos respirar juntos, devagar...'
+};
+
+function dinoboMostrarBalao(texto) {
+  var mapa = {child:'bubbleChild', teen:'bubbleTeen', escola:'bubbleEscola'};
+  var el = document.getElementById(mapa[currentTab]);
+  if (!el) return;
+  el.textContent = texto;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(function() { el.classList.remove('show'); }, 4500);
+}
+function dinoboFalar(texto) {
+  dinoboMostrarBalao(texto);
+  playMascote();
+  clearTimeout(dinoboFalar._t);
+  dinoboFalar._t = setTimeout(stopMascote, 3800);
+}
+function dinoboReagir(acao) {
+  var msg = DINOBO_ACOES[acao];
+  if (msg) dinoboFalar(msg);
+}
+function dinoboAnimarBracos(gesto) { playMascote(); }
+function dinoboIniciarFala() { playMascote(); }
+function dinoboFinalizarFala() { stopMascote(); }
+
+/* vídeo do Dinobo em repouso (loop silencioso é permitido no mobile) */
+function dinoboIdle() {
+  var vs = ['mascoteVideo', 'mascoteVideoTeen', 'mascoteVideoEscola'];
+  var ims = ['mascoteImg', 'mascoteImgTeen', 'mascoteImgEscola'];
+  for (var i = 0; i < vs.length; i++) {
+    var v = document.getElementById(vs[i]); if (!v) continue;
+    var im = document.getElementById(ims[i]);
+    v.muted = true;
+    v.style.display = 'block';
+    if (im) im.style.display = 'none';
+    var p = v.play(); if (p && p.catch) p.catch(function() {});
+  }
+}
+var _stopMascoteOrig = stopMascote;
+stopMascote = function() {
+  _stopMascoteOrig();
+  setTimeout(dinoboIdle, 60); /* volta ao loop em repouso */
+};
+window.addEventListener('touchstart', dinoboIdle, {once:true});
+window.addEventListener('click', dinoboIdle, {once:true});
+dinoboIdle();
+
+/* reação automática a qualquer botão funcional */
+document.addEventListener('click', function(e) {
+  var b = e.target.closest ? e.target.closest('.aac-btn,.cartao,.card,nav button,.subnav button,.crisis-btn') : null;
+  if (!b) return;
+  var box = document.getElementById('mascote');
+  if (box) { box.style.transform = 'scale(1.08)'; setTimeout(function(){ box.style.transform=''; }, 200); }
+  if (b.classList.contains('done')) dinoboReagir('tarefa_ok');
+});
+
+/* reações por aba (sem apagar a função original) */
+var _goTabOriginal = goTab;
+goTab = function(id, btn) {
+  _goTabOriginal(id, btn);
+  var mapa = {child:'entrar', teen:'teen', escola:'escola', parents:'responsaveis', reports:'dados', config:'ajustes'};
+  dinoboReagir(mapa[id] || 'entrar');
+};
+
+/* ---------- SISTEMA DE TRIAL 7 DIAS ---------- */
+function trialSalvarLocal(t) { localStorage.setItem('falamigo_trial_v1', JSON.stringify(t)); }
+function trialLocal() {
+  var s = localStorage.getItem('falamigo_trial_v1');
+  if (!s) { var t0 = {inicio: new Date().toISOString(), pago: false}; trialSalvarLocal(t0); return t0; }
+  try { return JSON.parse(s); } catch (e) { return {inicio: new Date().toISOString(), pago: false}; }
+}
+function trialProcessar(t) {
+  var inicio = new Date(t.inicio).getTime();
+  var fim = inicio + TRIAL_DIAS * 86400000;
+  var rest = Math.max(0, Math.ceil((fim - Date.now()) / 86400000));
+  var estado;
+  if (t.pago) estado = 'PAID_UNLOCKED';
+  else if (t.pagamentoPendente) estado = 'PAYMENT_PENDING';
+  else if (rest > 0) estado = 'TRIAL_ACTIVE';
+  else estado = 'TRIAL_EXPIRED';
+  trialDados = {estado: estado, inicio: inicio, fim: fim, restantes: rest, pago: !!t.pago};
+  trialRender();
+}
+function trialRender() {
+  var b = document.getElementById('trialBanner');
+  var t = document.getElementById('trialTxt');
+  var lock = document.getElementById('lockScreen');
+  if (!trialDados) return;
+  if (trialDados.estado === 'PAID_UNLOCKED') {
+    b.style.display = 'none'; lock.classList.remove('active'); return;
+  }
+  if (trialDados.estado === 'TRIAL_ACTIVE') {
+    lock.classList.remove('active'); b.style.display = 'block';
+    t.textContent = '🎉 Teste ativo! Restam ' + trialDados.restantes + (trialDados.restantes > 1 ? ' dias' : ' dia') +
+      '. Aproveite! Desbloqueio permanente por ' + PRECO_TXT + '.';
+  } else if (trialDados.estado === 'PAYMENT_PENDING') {
+    lock.classList.remove('active'); b.style.display = 'block';
+    t.textContent = '⏳ Pagamento em análise. Liberamos o acesso assim que o Asaas confirmar.';
+  } else {
+    b.style.display = 'none'; lock.classList.add('active'); dinoboIdle();
+  }
+}
+/* O SERVIDOR é a autoridade: se configurado, consulta /api/access/status.
+   Sem servidor, cai no relógio local (APENAS para teste — pode ser burlado). */
+function trialVerificarServidor() {
+  if (!DINOBO_SERVER_URL || !authToken) { trialProcessar(trialLocal()); return; }
+  fetch(DINOBO_SERVER_URL + '/api/access/status', {headers: {'Authorization': 'Bearer ' + authToken}})
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d && d.state) {
+        trialSalvarLocal({inicio: d.trialStart, pago: (d.state === 'PAID_UNLOCKED'),
+          pagamentoPendente: (d.state === 'PAYMENT_PENDING')});
+      }
+      trialProcessar(trialLocal());
+    })
+    .catch(function() { trialProcessar(trialLocal()); });
+}
+function desbloquearAgora() {
+  if (!DINOBO_SERVER_URL) {
+    alert('⚙️ Backend ainda não configurado.\n\n1) Faça deploy do backend (pasta /backend — ver README)\n2) Preencha DINOBO_SERVER_URL no código\n3) Teste com a sandbox do Asaas');
+    return;
+  }
+  if (!authToken) { document.getElementById('authModal').classList.add('active'); return; }
+  var st = document.getElementById('lockStatus');
+  if (st) st.textContent = 'Gerando cobrança segura...';
+  fetch(DINOBO_SERVER_URL + '/api/payments/create', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken},
+    body: '{}'
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.checkoutUrl) { window.location.href = d.checkoutUrl; }
+    else { if (st) st.textContent = 'Erro: ' + (d.error || 'tente novamente'); }
+  })
+  .catch(function() { if (st) st.textContent = 'Erro de comunicação. Tente novamente.'; });
+}
+function authConfirmar() {
+  var email = document.getElementById('authEmail').value.trim();
+  if (!email || email.indexOf('@') < 0) { alert('Digite um e-mail válido.'); return; }
+  fetch(DINOBO_SERVER_URL + '/api/auth/register', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email: email, password: 'falamigo-' + Math.random().toString(36).slice(2, 10)})
+  })
+  .then(function(r) { return r.json().then(function(d) { return {ok: r.ok, d: d}; }); })
+  .then(function(res) {
+    if (!res.ok) { /* tenta login caso já exista */
+      return fetch(DINOBO_SERVER_URL + '/api/auth/login', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email: email, password: ''})
+      }).then(function(r2) { return r2.json(); });
+    }
+    return res.d;
+  })
+  .then(function(d) {
+    if (d && d.token) {
+      authToken = d.token;
+      localStorage.setItem('falamigo_token', authToken);
+      document.getElementById('authModal').classList.remove('active');
+      trialVerificarServidor();
+      desbloquearAgora();
+    } else { alert('Não foi possível autenticar. Tente novamente.'); }
+  })
+  .catch(function() { alert('Erro de comunicação com o servidor.'); });
+}
+setInterval(trialVerificarServidor, 60000);
+trialVerificarServidor();
+</script>
+</body>
+</html>
